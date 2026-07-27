@@ -1,0 +1,241 @@
+        <!DOCTYPE html>
+        <html lang="zh-CN">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>1 - 踏雪寻梅</title>
+            <meta name="description" content="你好世界">
+            <meta name="author" content="xiuhong">
+            <link rel="icon" href="https://open.gridea.dev/media/gridea.png">
+            <base href="../../">
+            
+            
+            <link rel="stylesheet" href="styles/main.css">
+            <meta property="og:title" content="1"><meta property="og:description" content="写作日历不用全部月份展开展示，像日常的日历APP一样，滑动切换月份就行，请改进"><meta property="og:type" content="article"><meta property="og:url" content="post/1784652225258-1/"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"1","description":"写作日历不用全部月份展开展示，像日常的日历APP一样，滑动切换月份就行，请改进","datePublished":"2026-07-22T00:00:00+08:00","dateModified":"2026-07-22T00:00:00+08:00","author":{"@type":"Person","name":"xiuhong"},"keywords":"你好世界, 1, 2, 3, 4","url":"post/1784652225258-1/"}</script>
+        </head>
+        <body>
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-brand">
+    <img class="site-avatar" src="https://open.gridea.dev/media/gridea.png" alt="踏雪寻梅">
+    <div class="site-info">
+        <a href="./" class="site-logo">踏雪寻梅</a>
+        <p class="site-description">你好世界</p>
+        <p class="site-author">xiuhong</p>
+    </div>
+</div>
+                    <nav class="site-nav"><a href="./" class="nav-link">首页</a>
+<a href="archives/" class="nav-link">归档</a>
+<a href="tags/" class="nav-link">标签</a>
+<a href="links.html" class="nav-link">友链</a>
+<a href="post/1784822488687-test/" class="nav-link">页面</a>
+<a href="post/1784822528811-10/" class="nav-link" target="_blank">外部跳转页面</a>
+<a href="post/1785149298221-高考倒计时背景-基于HTML-CSS-J/" class="nav-link" target="_blank">对比测试</a>
+<a href="post/1785149224458-原网站文章/" class="nav-link">对照页面</a></nav>
+                </div>
+            </header>
+            <main class="container">
+                            <article class="post-detail">
+                <header class="post-header">
+                    <h1 class="post-title">1</h1>
+                    <div class="post-meta">
+                        <span class="meta-item post-date">2026-07-22 00:43:41</span>
+                        <span class="meta-item post-words">39 字</span>
+                        <span class="meta-item post-reading-time">1 分钟阅读</span>
+                    </div>
+                    <div class="post-tags"><a href="tag/你好世界/" class="tag">你好世界</a> <a href="tag/1/" class="tag">1</a> <a href="tag/2/" class="tag">2</a> <a href="tag/3/" class="tag">3</a> <a href="tag/4/" class="tag">4</a></div>
+                </header>
+                
+                
+                <div class="post-content">
+                    <p>写作日历不用全部月份展开展示，像日常的日历APP一样，滑动切换月份就行，请改进</p>
+
+                </div>
+                <nav class="post-navigation">
+                    <div class="post-nav prev">
+    <span class="nav-label">← 上一篇</span>
+    <a href="post/1784652235886-2/" class="nav-title">2</a>
+</div>
+                </nav>
+                <div id="vcomments" class="comment-section"></div>
+<script src="https://unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+new Valine({
+    el: '#vcomments',
+    appId: 'b3bmwzvDbEy3Gp1dCQlLHnYD-gzGzoHsz',
+    appKey: 'RbNsH69vnAeIeNSfr1wBGi8t',
+    path: window.location.pathname
+});
+</script>
+            </article>
+            </main>
+            <footer class="site-footer">
+                <div class="container">
+                    <p>Powered by Gridea</p>
+                </div>
+            </footer>
+            <script>
+(function() {
+    'use strict';
+
+    // ===== 1. 代码块复制按钮 =====
+    document.querySelectorAll('.post-content pre').forEach(function(pre) {
+        if (pre.querySelector('.code-copy-btn')) return;
+        var btn = document.createElement('button');
+        btn.className = 'code-copy-btn';
+        btn.type = 'button';
+        btn.textContent = '复制';
+        btn.setAttribute('aria-label', '复制代码');
+        pre.appendChild(btn);
+        btn.addEventListener('click', function() {
+            var code = pre.querySelector('code');
+            var text = code ? code.innerText : pre.innerText;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function() {
+                    showCopied(btn);
+                }).catch(function() {
+                    fallbackCopy(text, btn);
+                });
+            } else {
+                fallbackCopy(text, btn);
+            }
+        });
+    });
+
+    function showCopied(btn) {
+        btn.textContent = '已复制';
+        btn.classList.add('copied');
+        setTimeout(function() {
+            btn.textContent = '复制';
+            btn.classList.remove('copied');
+        }, 2000);
+    }
+
+    function fallbackCopy(text, btn) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+            document.execCommand('copy');
+            showCopied(btn);
+        } catch (e) {}
+        document.body.removeChild(ta);
+    }
+
+    // ===== 2. 回到顶部按钮 + 阅读进度条(rAF 节流)=====
+    var backTopBtn = document.getElementById('back-to-top');
+    var progressBar = document.getElementById('reading-progress');
+    // 标记:custom.js 检测到该标记后跳过重复绑定,避免双进度条抖动
+    if (backTopBtn) backTopBtn.dataset.grideaInline = '1';
+    if (progressBar) progressBar.dataset.grideaInline = '1';
+    var backTopVisible = false;
+    var ticking = false;
+
+    var cachedScrollHeight = document.documentElement.scrollHeight;
+    var cachedClientHeight = document.documentElement.clientHeight;
+    var lastPercent = -1;
+
+    function recalcScrollMetrics() {
+        cachedScrollHeight = document.documentElement.scrollHeight;
+        cachedClientHeight = document.documentElement.clientHeight;
+        lastPercent = -1;
+    }
+
+    function onScrollUpdate() {
+        var scrollTop = window.scrollY || document.documentElement.scrollTop;
+        if (backTopBtn) {
+            var shouldShow = scrollTop > 300;
+            if (shouldShow !== backTopVisible) {
+                backTopVisible = shouldShow;
+                if (shouldShow) {
+                    backTopBtn.classList.add('visible');
+                } else {
+                    backTopBtn.classList.remove('visible');
+                }
+            }
+        }
+        if (progressBar) {
+            var scrollRange = cachedScrollHeight - cachedClientHeight;
+            var percent = scrollRange > 0 ? (scrollTop / scrollRange) : 0;
+            var quantized = Math.round(percent * 200) / 200;
+            if (quantized !== lastPercent) {
+                lastPercent = quantized;
+                progressBar.style.transform = 'scaleX(' + quantized + ')';
+            }
+        }
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            window.requestAnimationFrame(onScrollUpdate);
+            ticking = true;
+        }
+    }, { passive: true });
+    var resizeTimer = null;
+    window.addEventListener('resize', function() {
+        if (resizeTimer) clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            recalcScrollMetrics();
+            if (!ticking) {
+                window.requestAnimationFrame(onScrollUpdate);
+                ticking = true;
+            }
+        }, 200);
+    }, { passive: true });
+    onScrollUpdate();
+
+    if (backTopBtn) {
+        backTopBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // ===== 3. 图片点击放大 =====
+    var overlay = document.getElementById('image-zoom-overlay');
+    var zoomImg = document.getElementById('image-zoom-img');
+    if (overlay) overlay.dataset.grideaInline = '1';
+    if (overlay && zoomImg) {
+        document.querySelectorAll('.post-content img, .post-feature img').forEach(function(img) {
+            img.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                zoomImg.src = img.src;
+                zoomImg.alt = img.alt || '';
+                overlay.classList.add('visible');
+                overlay.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        function closeZoom() {
+            overlay.classList.remove('visible');
+            overlay.setAttribute('aria-hidden', 'true');
+            zoomImg.src = '';
+            document.body.style.overflow = '';
+        }
+        overlay.addEventListener('click', closeZoom);
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeZoom();
+        });
+    }
+})();
+</script>
+            <!-- 阅读进度条 -->
+            <div id="reading-progress-container" class="reading-progress-container">
+              <div id="reading-progress" class="reading-progress-bar"></div>
+            </div>
+            <!-- 回到顶部按钮 -->
+            <button id="back-to-top" class="back-to-top">↑</button>
+            <!-- 图片放大遮罩 -->
+            <div id="image-zoom-overlay" class="image-zoom-overlay">
+              <img id="image-zoom-img" class="image-zoom-img" />
+            </div>
+            <!-- 主题声明的 JS 库（assets 中 type=js） -->
+            
+            <!-- 主题脚本 -->
+            <script src="scripts/custom.js"></script>
+        </body>
+        </html>
