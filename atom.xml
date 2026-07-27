@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>踏雪寻梅</title><subtitle>你好世界</subtitle><id>/</id><link href="/"/><updated>2026-07-27T23:03:51Z</updated><entry><title>5</title><id>post/1784652274404-5/</id><link href="post/1784652274404-5/"/><updated>2026-07-22 00:44:30T00:00:00Z</updated><summary>空状态引导：无文章/无标签时的友好提示
+长按快捷菜单：文章卡片长按弹出编辑/删除/置顶/复制链接
+首次启动引导：新用户引导页</summary><content type="html">&lt;p&gt;空状态引导：无文章/无标签时的友好提示&lt;/p&gt;
+&lt;p&gt;长按快捷菜单：文章卡片长按弹出编辑/删除/置顶/复制链接&lt;/p&gt;
+&lt;p&gt;首次启动引导：新用户引导页&lt;/p&gt;
+</content></entry><entry><title>文章上传确认</title><id>post/1785150854075-文章上传确认/</id><link href="post/1785150854075-文章上传确认/"/><updated>2026-07-27 19:14:04T00:00:00Z</updated><summary>文章 URL 默认格式
+Slug
+Short ID
+标签 URL 默认格式
+Slug
+Short ID</summary><content type="html">&lt;p&gt;文章 URL 默认格式&lt;/p&gt;
+&lt;p&gt;Slug
+Short ID
+标签 URL 默认格式&lt;/p&gt;
+&lt;p&gt;Slug
+Short ID&lt;/p&gt;
+</content></entry><entry><title>高考倒计时背景（基于HTML/CSS+JS实现）</title><id>post/1785149298221-高考倒计时背景-基于HTML-CSS-J/</id><link href="post/1785149298221-高考倒计时背景-基于HTML-CSS-J/"/><updated>2026-07-27 18:48:14T00:00:00Z</updated><summary>作为一名合格的高三牲，高考就是我们现今的最大目标，那高考倒计时也肯定是少不了的，但是个人认为手写的倒计时过于古老且不智能，不能实时更新，过于麻烦，同时也受提醒，所以就有现在这个想法。而且刚换了新平台，不折腾一下说不过去
+接下来就是就是寻找别...</summary><content type="html">&lt;p&gt;作为一名合格的高三牲，高考就是我们现今的最大目标，那高考倒计时也肯定是少不了的，但是个人认为手写的倒计时过于古老且不智能，不能实时更新，过于麻烦，同时也受提醒，所以就有现在这个想法。而且刚换了新平台，不折腾一下说不过去&lt;/p&gt;
+&lt;p&gt;接下来就是就是寻找别人的轮子了，换个皮就是自己的【乐】，找了很久才发现一个比较好，且符合个人审美的，但是问题也比较多，就比如中间那个大框特别碍眼，而且添加背景后，只能显示局部不能拉伸全屏，这就让人很不爽&lt;/p&gt;
+&lt;p&gt;经过艰苦的修改后，将这个大框去掉，然后图片可以正常显示，还加了一个看板娘添加活力，但是有时加载不出来，效果如图且代码如下
+&lt;a href=&quot;https://www.cnblogs.com/cairbin/p/13535781.html&quot;&gt;这是作者原帖&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;file://C:/Users/Lime/Documents/Gridea/post-images/1693309526709.png&quot; alt=&quot;&quot; / loading=&quot;lazy&quot; decoding=&quot;async&quot;&gt;&lt;/p&gt;
+&lt;h1&gt;HTML&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+    &amp;lt;head&amp;gt;
+        &amp;lt;meta charset=&amp;quot;utf-8&amp;quot; /&amp;gt;
+        &amp;lt;title&amp;gt;Countdown to NCEE&amp;lt;/title&amp;gt;
+        &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;css/1.css&amp;quot;&amp;gt;
+    &amp;lt;/head&amp;gt;
+    &amp;lt;body&amp;gt;
+        &amp;lt;div class=&amp;quot;container&amp;quot;&amp;gt;
+             &amp;lt;h2&amp;gt;&amp;lt;span&amp;gt;Countdown to NCEE&amp;lt;/span&amp;gt; 2023&amp;lt;/h2&amp;gt;
+             &amp;lt;div class=&amp;quot;countdown&amp;quot;&amp;gt;
+                 &amp;lt;div id=&amp;quot;day&amp;quot;&amp;gt;NA&amp;lt;/div&amp;gt;
+                 &amp;lt;div id=&amp;quot;hour&amp;quot;&amp;gt;NA&amp;lt;/div&amp;gt;
+                 &amp;lt;div id=&amp;quot;minute&amp;quot;&amp;gt;NA&amp;lt;/div&amp;gt;
+                 &amp;lt;div id=&amp;quot;second&amp;quot;&amp;gt;NA&amp;lt;/div&amp;gt;
+             &amp;lt;/div&amp;gt;
+         &amp;lt;/div&amp;gt;
+    &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;
+
+    function getEndTime(myYear){
+        var myEndTime = new Date(&apos;&apos;+myYear+&apos;/06/07 00:00:00&apos;);//更改日期
+        return myEndTime;
+    }
+
+    function countDown(){
+        var mydate = new Date();
+        var year = &apos;2023&apos;;
+        var EndTime = getEndTime(year);
+        var NowTime = new Date();
+        if( (EndTime.getTime() - NowTime.getTime() ) &amp;lt; 0){
+            year = mydate.getFullYear() + 1;
+            EndTime = getEndTime(year);
+        }
+        var t = EndTime.getTime() - NowTime.getTime();
+
+
+
+        var d=Math.floor(t/1000/60/60/24);
+        var h=Math.floor(t/1000/60/60%24);
+        var m=Math.floor(t/1000/60%60);
+        var s=Math.floor(t/1000%60);
+
+        document.getElementById(&apos;day&apos;).innerText = d;
+        document.getElementById(&apos;hour&apos;).innerText = h;
+        document.getElementById(&apos;minute&apos;).innerText = m;
+        document.getElementById(&apos;second&apos;).innerText = s;
+    } 
+    setInterval(countDown,1000);
+&amp;lt;/script&amp;gt;
+
+&amp;lt;!-- 看板娘管理 --&amp;gt;
+
+&amp;lt;script src=&amp;quot;https://l2dwidget.js.org/lib/L2Dwidget.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;
+	L2Dwidget
+	.on(&apos;*&apos;, (name) =&amp;gt; {
+	console.log(&apos;%c EVENT &apos; + &apos;%c -&amp;gt; &apos; + name, &apos;background: #222; color: yellow&apos;, &apos;background: #fff; color: #000&apos;)
+	})
+	.init({
+		display: {
+			// 居左
+			&amp;quot;position&amp;quot;: &amp;quot;right&amp;quot;,
+			// 宽度
+			&amp;quot;width&amp;quot;: 150,
+			// 高度
+			&amp;quot;height&amp;quot;: 250,
+			// 距左右
+			&amp;quot;hOffset&amp;quot;: 10,
+			// 距下
+			&amp;quot;vOffset&amp;quot;: 40
+		},
+ 
+		mobile: {
+			// 移动端，false为关闭
+			&amp;quot;show&amp;quot;: true,
+			&amp;quot;scale&amp;quot;: 0.5
+		},
+ 
+		dialog: {
+		// 开启对话框，false为关闭
+			enable: true,
+			script: {
+				// 每空闲 10 秒钟，显示一条一言
+				&apos;every idle 10s&apos;: &apos;$hitokoto$&apos;,
+				// 当触摸到角色身体
+				&apos;tap body&apos;: &apos;哎呀！别碰我！&apos;,
+				// 当触摸到角色头部
+				&apos;tap face&apos;: &apos;你干嘛，哎呦。&apos;
+			}
+		}
+	});
+&amp;lt;/script&amp;gt;
+
+
+&amp;lt;!--由江鸟更改部分代码，修正了背景图不能全屏 --&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1&gt;CSS&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;@import url(&amp;quot;https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&amp;quot;);
+*
+{
+    margin: 0;
+    padding: 0;
+    font-family: &apos;Poppins&apos;, sans-serif;
+}
+
+body
+{
+    background: url(../image/bg.jpg); 
+    background-attachment: fixed;
+    background-blend-mode: hard-light;
+    -webkit-background-size: cover;
+    -o-background-size: cover;                
+    background-size: cover;
+
+}
+
+.container{
+    position: absolute;
+    top: 80px;
+    left: 100px;
+    right: 100px;
+    bottom: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container h2 {
+    text-align: center;
+    font-size: 10em;
+    line-height: 0.7em;
+    color: #333;
+    margin-top: -80px;
+}
+
+.container h2 span{
+    display: block;
+    font-weight: 300;
+    letter-spacing: 6px;
+    font-size: 0.2em;
+}
+.countdown{
+    display: flex;
+    margin-top: 50px;
+}
+.countdown div{
+    position: relative;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    background: #333;
+    color: #fff;
+    margin: 0 15px;
+    font-size: 3em;
+    font-weight: 500;
+}
+.countdown div:before{
+    content: &apos;&apos;;
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+    width: 100%;
+    height: 35px;
+    background: rgb(16, 187, 209);
+    color: #ffffff;
+    font-size: 0.35em;
+    line-height: 35px;
+    font-weight: 300;
+}
+.container #day:before{
+    content: &apos;Days&apos;;
+}
+.container #hour:before{
+    content: &apos;Hours&apos;;
+}
+.container #minute:before{
+    content: &apos;Minutes&apos;;
+}
+.container #second:before{
+    content: &apos;Seconds&apos;;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;去b站闲逛的时候又发现一个比较好看的，又是修改修改，我这里放上来，如下所示
+&lt;a href=&quot;https://www.bilibili.com/video/BV1Tb411d7ru/?spm_id_from=333.880.my_history.page.click&amp;amp;vd_source=c5440bddf5fb910e7a2adeef0914761f&quot;&gt;这是作者视频&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;file://C:/Users/Lime/Documents/Gridea/post-images/1693311023901.png&quot; alt=&quot;&quot; / loading=&quot;lazy&quot; decoding=&quot;async&quot;&gt;&lt;/p&gt;
+&lt;p&gt;这次就不一一放出代码了，我将其打包放在网盘，需要的可以直接下载&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.123pan.com/s/7GHSVv-t0xod.html&quot;&gt;源码下载&lt;/a&gt;
+&lt;a href=&quot;https://www.123pan.com/s/7GHSVv-i0xod.html&quot;&gt;软件下载&lt;/a&gt;&lt;/p&gt;
+&lt;h1&gt;下载帮助&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;file://C:/Users/Lime/Documents/Gridea/post-images/1724213800104.png&quot; alt=&quot;&quot; / loading=&quot;lazy&quot; decoding=&quot;async&quot;&gt;&lt;/p&gt;
+</content></entry><entry><title>原网站文章</title><id>post/1785149224458-原网站文章/</id><link href="post/1785149224458-原网站文章/"/><updated>2026-07-27 18:46:56T00:00:00Z</updated><summary>这一年
+1.我成功复刻了bilibili小电视，有一说一比较简单，就是代码部分令人抓狂 ；
+2.成功入坑游戏手柄，不过并不怎么好用，不支持360模式，好多游戏玩不了;
+3.电视盒子刷机，并以此开始学习liunx系统 ；
+4.拥有了第一个移动...</summary><content type="html">&lt;h1&gt;这一年&lt;/h1&gt;
+&lt;p&gt;1.我成功复刻了bilibili小电视，有一说一比较简单，就是代码部分令人抓狂 ；&lt;/p&gt;
+&lt;p&gt;2.成功入坑游戏手柄，不过并不怎么好用，不支持360模式，好多游戏玩不了;&lt;/p&gt;
+&lt;p&gt;3.电视盒子刷机，并以此开始学习liunx系统 ；&lt;/p&gt;
+&lt;p&gt;4.拥有了第一个移动硬盘，开始数据备份之路;&lt;/p&gt;
+&lt;p&gt;5.淘了一台z3735f的主板，只要75，捡漏了；&lt;/p&gt;
+&lt;p&gt;6.建成了我第一个个人网站，我取名为&lt;a href=&quot;https://xiuhong.ltd&quot;&gt;云深不知处&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;file://C:/Users/Lime/Documents/Gridea/post-images/1670742519352.png&quot; alt=&quot;&quot; / loading=&quot;lazy&quot; decoding=&quot;async&quot;&gt;&lt;/p&gt;
+&lt;p&gt;7.第一个在bilibili发布的视频，主要为我在搭建网站时的经验教训&lt;/p&gt;
+&lt;div style=&quot;position: relative; padding: 30% 45%;&quot;&gt;
+    &lt;iframe style=&quot;
+        position: absolute; 
+        width: 100%; 
+        height: 100%; 
+        left: 0; top: 0;&quot; 
+        src=&quot;//player.bilibili.com/player.html?aid=765910983&amp;bvid=BV1tr4y1e75b&amp;cid=493840721&amp;page=1&amp;high_quality=1&quot; 
+        scrolling=&quot;no&quot; 
+        border=&quot;0&quot; 
+        frameborder=&quot;no&quot; 
+        framespacing=&quot;0&quot; 
+        allowfullscreen=&quot;true&quot;&gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/br&gt;
+&lt;p&gt;8.摔坏了两台机，两个都是一模一样的，服了.......&lt;/p&gt;
+&lt;p&gt;9.遇到了一群有趣的灵魂 ......&lt;/p&gt;
+&lt;h1&gt;十年饮冰，难凉热血&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;新的一年，保持热爱，奔赴星海，所念皆星河 。&lt;/strong&gt;&lt;/p&gt;
+</content></entry><entry><title>新测试</title><id>post/1784952291407-新测试/</id><link href="post/1784952291407-新测试/"/><updated>2026-07-25 12:04:39T00:00:00Z</updated><summary>1.如果主题可以存放在内置目录的同时，用户可以自行删除清理，那就不用换到外置目录了，我的本意是想让用户更方便管理主题。
+2.整合内容，描述一下目前主题的开发方向和架构主题配置导出暂不考虑，其余可以执行阅读工作目录跟目录的项目记忆和wiki文...</summary><content type="html">&lt;p&gt;1.如果主题可以存放在内置目录的同时，用户可以自行删除清理，那就不用换到外置目录了，我的本意是想让用户更方便管理主题。
+2.整合内容，描述一下目前主题的开发方向和架构主题配置导出暂不考虑，其余可以执行阅读工作目录跟目录的项目记忆和wiki文档，了解app开发进程和项目结构，目前我们要着手于博客主题设计。我向别人询问了相关方法，得到：主题设计思路旨在构建一个高度解耦、动态响应的博客主题配置引擎，核心是确立 “JSON Schema 协议” 作为主题包与 Android 宿主 App 之间的标准通信契约。首先，在主题包（压缩包解压后的独立目录）根目录下定义 theme.json 文件，该文件不仅记录主题名称与版本，其核心是一个 configs 数组，针对每项可调参数（如主色调、字体族、是否显示阅读时长、内容最大宽度等）精确声明其 key（唯一标识）、label（显示名称）、type（颜色、单选、布尔开关、数字等）及 default（默认值），这一结构化描述为后续的动态识别与渲染提供了数据源。其次，在 App 层面，通过文件选择器导入 .zip 主题包并解压至指定目录(设置在Document/Gridea/Themes)，App 启动时遍历扫描并解析该 JSON 文件，将配置项的默认值落盘至 SharedPreferences 作为全局初始状态，同时利用 JSON 中的 key 字段作为读写索引，实现配置数据的持久化隔离。接着，App 中的主题设置页面摒弃静态写死的布局，转而基于解析出的 configs 数组动态渲染 UI 表单——借助 RecyclerView 的多布局机制，根据 type 字段分别生成颜色选择器（ColorPicker）、下拉菜单（Spinner）、开关控件（SwitchCompat）或数字调节器，并将用户的每一次修改通过监听器实时同步更新至 SharedPreferences，确保数据状态始终与 UI 操作保持强一致。最后，也是最关键的渲染闭环，静态网站文件在编写时预留 CSS 变量（Custom Properties）和特定的 DOM 元素 ID，当 WebView 加载或用户切换配置时，App 通过 evaluateJavascript 动态注入样式与 JavaScript 逻辑，将 SharedPreferences 中存储的键值对直接映射为 CSS 变量值（如 --primary-color）或控制 DOM 元素的显隐状态，从而在不重新生成 HTML 文件的前提下实现配置即时生效。该方案确保主题开发者仅需维护轻量的声明式 JSON 文件即可扩展无限种自定义项，而 App 端无需因新主题更新而频繁发版，同时避免了为不同主题重新编译静态文件的性能开销，完美契合轻量级博客写作软件对动态性、扩展性与低算力消耗的双重需求。你觉得如何？可否能实现？这是问题（仅分析进行解答即可）&lt;/p&gt;
+</content></entry><entry><title>长文章</title><id>post/1784867937106-长文章/</id><link href="post/1784867937106-长文章/"/><updated>2026-07-24 12:38:39T00:00:00Z</updated><summary>1.账户页面的更新账户信息按钮，目前是点击后，在账户详情卡片左下角用红色字体展示刷新结果，目前已经是灵动岛通知的形式，请删除左下角红色字体通知。同时通知内容除了展示刷新结果，增加获取过程展示，请优化。
+2.目前文章编辑页面，有一个字数达标通...</summary><content type="html">&lt;p&gt;1.账户页面的更新账户信息按钮，目前是点击后，在账户详情卡片左下角用红色字体展示刷新结果，目前已经是灵动岛通知的形式，请删除左下角红色字体通知。同时通知内容除了展示刷新结果，增加获取过程展示，请优化。
+2.目前文章编辑页面，有一个字数达标通知，我希望这个也能接入灵动岛通知栏，原本达标通知文字内容不变。
+3.文章首页上方的文章写作记录卡片，内容分别记录有全部文章，已发布，草稿，标签，将全部文章删去，在“标签”记录右侧新增一个“连续写作天数”记录，修改完成后注意整体排布。
+4.我在进行标签关联文章的测试时，发生了软件错误，软件闪退了，具体日志已提供到根目录。
+5.软件内的日志管理系统，希望能在软件发生错误崩溃时，能够快速的记录下具体错误详情并保存。因此我决定在Gridea目录下新增log文件夹，用于存放崩溃日志。同时在数据与备份页面下新增log管理，组件内容和风格参照前两个站点管理和备份管理，能够批量管理日志，支持一键清空，唤出批量管理过程中增加动画过渡，保证视觉流畅。
+6.具体情况描述(仅描述非问题)：我发现，前几轮对话我不是要求你将已有内容的输入框的文字上移缩小的动画，在已填写内容的情况下，不再执行动画。这使得我在点击部署和主题页面时的加载速度大大提高，卡顿情况减少了，有了较大缓解。
+7.对于备份，现在我希望它的备份内容能覆盖已有的文章，标签，菜单，友链，以及部署和主题页面所填充的所有内容，自定义主题那边的内容先不考虑进去，等开发完善好主题功能后再进行升级。以及设置-通用里的设置偏好。
+8.新增webview调试接口，后期我会使用谷歌浏览器的devtool进行webview调试分析。
+9.文章的写作日历还是有时能正常显示，有时点进去就无法正常显示，如果必要，可以对写作日历整个进行重写。
+10.在部署-基础配置，将静态渲染这一组件，移到页面首位，顺序就变为静态渲染-部署平台
+11.设置页面添加一个新的选项入口“调试”，里面增加多种调试开关，用于监测软件运行，如果有哪些接口是有需要的，且需要手动开启，就增加到里面。如果这条请求你分析后觉得如果没有必要，可以忽略。
+12.将关于页面优化一下，更新文字内容信息，如果没有变化就不用修改。关于页面添加展示位：顶部添加软件图标(软件图标存放文件夹为ico，里面有各种尺寸的软件图标可自行选择)，然后往下的组件依次为软件介绍(已有)，版本信息，开发者以此类推。
+13页面里面的标签，标签卡片跟顶部的切换栏之间存在一大片空白间距，请修复。同时我发现标签，菜单，友链的批量管理唤出，是一个悬浮栏。请仿照文章批量管理一样，多选图标和删除，放置在页面顶部右上角处，平时隐藏，长按触发批量管理后出现。&lt;/p&gt;
+</content></entry><entry><title>12</title><id>post/1784822549138-12/</id><link href="post/1784822549138-12/"/><updated>2026-07-24 00:02:25T00:00:00Z</updated><summary>1.回收站界面一共有四个区，但只能点击切换栏进行切换，请添加左右手势滑动切换。
+2.主题-自定义主题的导入主题按钮切换成圆角卡片风格，不要只有文字
+3.能否能对APP全局页面的打开和加载都使用占位符加异步填充的方案进行动画优化，日志界面的加...</summary><content type="html">&lt;p&gt;1.回收站界面一共有四个区，但只能点击切换栏进行切换，请添加左右手势滑动切换。
+2.主题-自定义主题的导入主题按钮切换成圆角卡片风格，不要只有文字
+3.能否能对APP全局页面的打开和加载都使用占位符加异步填充的方案进行动画优化，日志界面的加载优化，测试状况良好，我觉得可以全局应用。如果你觉得效果不够，可以考虑全局优化加硬件加速辅助。
+4.菜单和友链的fab按钮，高度和标签的fab不同，请优化。同时新建文章的fab按钮，换成的容器变化动画效果还行，打开动画效果可以，但是收缩动画就比较生硬。我想着退出时，先让内容消失，再让空容器收缩。用户看不到文字被挤压，体感瞬间顺滑。对于fab按钮点击，添加一下按压反馈优化：点击瞬间，按钮整体缩放至 0.85（50ms），松手或动画结束时回弹至 1.0（150ms，带 OvershootInterpolator 轻微过冲）。这给用户明确的“点中了”的触感，能完美掩盖界面加载的微小延迟。同时我想让标签，菜单，友链的fab按钮都尝试性使用和新建文章同样的容器变换动画。
+5.文章列表上下滑动时，悬浮的fab按钮暂时消失，停止滑动时出现，消失动画使用平移，然后标签，菜单，友链页面的fab按钮也同理
+1.写作日历的数据还是无法正常显示，要不更换为直接读取文章列表里的文章时间进行匹配
+2.对于标签，菜单，友链，都增加批量管理功能，原来标签已经有了批量管理，但是合并成新页面后，为了防止页面冲突，原先标签批量管理相关代码就清除删去，和菜单，友链的管理一起重写。用户长按卡片时，能够唤出批量管理，对卡片进行删改。换出批量管理过程中增加适当的动画，提高视觉流畅性。
+3.上次合并了生成，检测，部署三个按钮，感觉灵活性下降了。我打算移除一键部署按钮，将合并按钮再次拆分开。将检测连接按钮以及对应功能迁移到部署平台组件内的底部(站点域名下方)，按钮风格圆角卡片，卡片内的文字左侧增加图标，易于辨识。访问站点按钮在发布站点组件里移除，迁移到部署页面的标题栏，及部署页面的右上角，风格圆角卡片，文字内容为访问站点，文字左侧添加对应图标。然后原先名为“发布站点”的组件，改名为“静态渲染”，增加按钮“生成渲染”，保留预览按钮，静态渲染和预览两个按钮，按钮横向排布，均为圆角卡片风格。静态渲染组件内添加对应文字说明指引。
+4.部署历史和备份管理的批量管理功能，对其批量管理功能的唤出过程，增加相应的过渡动画，增加视觉流畅度。
+5.点击“生成渲染”，进行静态网站文件渲染生成时，先清除前一次的生成缓存和静态文件，防止文件冲突出错，在进行新一轮的静态网站文件渲染生成。
+6.日志管理里面的删除弹窗界面，取消选择项平铺，改为下拉选择框，选择框圆角卡片风格。
+7.问题：目前账户信息，登录了GitHub账号，下方的账户详情获取到的仓库数和实际拥有的数据不一致，比如通过接口获取的仓库数是5，但账号里面实际创建了7个仓库，这个仓库数的判定是有什么依据的吗？&lt;/p&gt;
+</content></entry><entry><title>11</title><id>post/1784822538683-11/</id><link href="post/1784822538683-11/"/><updated>2026-07-24 00:02:14T00:00:00Z</updated><summary>1.写作统计里面的写作日历显示全面，有点耗费资源，换回之前的简略显示。
+2.文章编辑页面退出时，目前是退出时，先让内容消失，再让空容器收缩。我想进一步删减动画，把先让内容消失，变成空容器这一步，直接将原页面进行收缩。然后将退出动画的总耗时从...</summary><content type="html">&lt;p&gt;1.写作统计里面的写作日历显示全面，有点耗费资源，换回之前的简略显示。
+2.文章编辑页面退出时，目前是退出时，先让内容消失，再让空容器收缩。我想进一步删减动画，把先让内容消失，变成空容器这一步，直接将原页面进行收缩。然后将退出动画的总耗时从60毫秒降到50毫秒。
+3.将导入主题的圆角卡片按钮，移动至“主题”页面的右上角，原先因为按钮移动后，留下来的空白区域删去。
+4.进入全屏编辑是，工具栏跟任务栏之间还是存在一个任务栏高度的空白，请删去这部分空白区域。&lt;/p&gt;
+</content></entry><entry><title>10</title><id>post/1784822528811-10/</id><link href="post/1784822528811-10/"/><updated>2026-07-24 00:02:03T00:00:00Z</updated><summary>1.之前有优化过文章首页和标签页的未创建提示，请按照文章首页和标签页的优化(可查看项目记忆或者前几轮对话)，给菜单和友链页面也修改同样风格的未创建提示。
+2.将写作日历改为可以显示三个月的数据，感觉当前月份还是有点少，换成三个月。
+3.主题...</summary><content type="html">&lt;p&gt;1.之前有优化过文章首页和标签页的未创建提示，请按照文章首页和标签页的优化(可查看项目记忆或者前几轮对话)，给菜单和友链页面也修改同样风格的未创建提示。
+2.将写作日历改为可以显示三个月的数据，感觉当前月份还是有点少，换成三个月。
+3.主题导入按钮旁边可否添加文字“导入主题”，用一个圆角卡片包裹按钮跟文字。
+4.退出编辑动画恢复内容先淡出了两步动画(即先创建空白容器，然后再退出)，空白容器的创建速度能不能提高？&lt;/p&gt;
+</content></entry><entry><title>9</title><id>post/1784822518119-9/</id><link href="post/1784822518119-9/"/><updated>2026-07-24 00:01:51T00:00:00Z</updated><summary>1.日志管理界面加一个悬浮的fab按钮，图标为一个向上的箭头，用于浏览日志列表时一键返回顶部。
+2.目前评论系统配置虽然填好了配置，但实际部署后无法使用，显示了评论区，可以输入填写，但是无法提交或点击相关控件
+3.友链在本地的webview...</summary><content type="html">&lt;p&gt;1.日志管理界面加一个悬浮的fab按钮，图标为一个向上的箭头，用于浏览日志列表时一键返回顶部。
+2.目前评论系统配置虽然填好了配置，但实际部署后无法使用，显示了评论区，可以输入填写，但是无法提交或点击相关控件
+3.友链在本地的webview预览正常，但是部署到平台，通过域名访问时就会报错。
+4.进行上传部署时，一旦切换页面，就会停止部署，然后部署失败。能不能让切换其他页面后，部署过程仍然能接着进行(后台运行)，切到其他页面时，通过灵动岛通知展示实时上传进度，上传完成后，同时成功后销毁通知。
+5.部署历史回滚功能，我希望能增加自行选择回滚版本的选项，让用户能自行选择历史中某一个版本进行回滚操作。&lt;/p&gt;
+</content></entry></feed>
