@@ -1,8 +1,55 @@
-<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>踏雪寻梅</title><subtitle>你好世界</subtitle><id>https://16916949.github.io/</id><link href="https://16916949.github.io/"/><updated>2026-07-27T23:08:44Z</updated><entry><title>5</title><id>https://16916949.github.io/post/1784652274404-5/</id><link href="https://16916949.github.io/post/1784652274404-5/"/><updated>2026-07-22 00:44:30T00:00:00Z</updated><summary>空状态引导：无文章/无标签时的友好提示
+<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>踏雪寻梅</title><subtitle>你好世界</subtitle><id>https://16916949.github.io/</id><link href="https://16916949.github.io/"/><updated>2026-07-28T13:01:55Z</updated><entry><title>5</title><id>https://16916949.github.io/post/1784652274404-5/</id><link href="https://16916949.github.io/post/1784652274404-5/"/><updated>2026-07-22 00:44:30T00:00:00Z</updated><summary>空状态引导：无文章/无标签时的友好提示
 长按快捷菜单：文章卡片长按弹出编辑/删除/置顶/复制链接
 首次启动引导：新用户引导页</summary><content type="html">&lt;p&gt;空状态引导：无文章/无标签时的友好提示&lt;/p&gt;
 &lt;p&gt;长按快捷菜单：文章卡片长按弹出编辑/删除/置顶/复制链接&lt;/p&gt;
 &lt;p&gt;首次启动引导：新用户引导页&lt;/p&gt;
+</content></entry><entry><title>标签测试</title><id>https://16916949.github.io/post/biao-qian-ce-shi/</id><link href="https://16916949.github.io/post/biao-qian-ce-shi/"/><updated>2026-07-30 11:08:29T00:00:00Z</updated><summary>1.每次更换主题渲染，我希望点击生成时，能够清除前面渲染出来的文件和缓存，因为我在测试的时候经常需要更换主题查看效果，点击预览时，主题却没有变更，还是一直停留。同时网站文章列表也无法显示，其次，当文章超过10页存在分页切换时，我点击切换到存...</summary><content type="html">&lt;p&gt;1.每次更换主题渲染，我希望点击生成时，能够清除前面渲染出来的文件和缓存，因为我在测试的时候经常需要更换主题查看效果，点击预览时，主题却没有变更，还是一直停留。同时网站文章列表也无法显示，其次，当文章超过10页存在分页切换时，我点击切换到存放在第二页的文章，会提示404。相关日志我已提交到根目录，请查收。
+2.关于-软件版本处，添加对当前软件发布版本的展示(debug or release版本)，使用动态检测，这样子无需发布前需要修改这里的字符。
+3.这是一个问题:阅读当前的日志管理以及相关调试的页面的代码，我想问一下，当发布成release版本后，原先的日志管理以及调试开关是否还可以生效。因为我想在发布成正式版本后，还可以进行对软件内部的调试以及相关信息的抓取。
+然后我问了DeepSeek，他建议我这些开关在正式版本中不要展示，但是可以通过像安卓手机一样，通过连续点击版本号的方法，显示隐藏的调试入口。同时他和我说发布成release版本后，日志的输出和储存会有限制，Web view开关的话就可以正常用，但是建议我进行隐藏。同时我希望正式版本也能抓取到logcat日志，比如正式版是不可以收集logcat日志的，不过我想加一个开关，然后就可以尽量能读取，但也被告知有难度。
+4.我在工作目录里新建了一个文件夹“桌面端文件概览”，其中“Gridea”文件夹是桌面端软件的配置文件，里面包含文章，文章图片，网站头像，网站图标，还有主题目录，以及还有一个“static”文件夹，可以存放用户自行构建的网页，渲染时会一并出现在站点输出目录，你后续可以查看输出目录里面是可以找得到的。“.gridea”文件夹是桌面端软件处理了“Gridea”文件夹里面的配置文件，从而输出的静态站点文件。请你仔细阅读这两个文件夹，理清楚从配置文件怎么变成站点输出文件的整个转换逻辑？目前我们安卓APP的站点输出产生的文件树感觉还是有点乱，请参考桌面端的转换逻辑进行改进。
+5.将主题-基础配置-URL与路径这一组件的功能内容进行改进，细化按钮说明，优化按钮功能名称，做到和桌面端软件一样的清晰易懂。
+6.我在测试主题新增加的自定义js时，我输入了以下代码&lt;script src=&quot;https://l2dwidget.js.org/lib/L2Dwidget.min.js&quot;&gt;&lt;/script&gt;&lt;/p&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+	L2Dwidget
+	.on(&apos;*&apos;, (name) =&gt; {
+	console.log(&apos;%c EVENT &apos; + &apos;%c -&gt; &apos; + name, &apos;background: #222; color: yellow&apos;, &apos;background: #fff; color: #000&apos;)
+	})
+	.init({
+		display: {
+			// 居左
+			&quot;position&quot;: &quot;right&quot;,
+			// 宽度
+			&quot;width&quot;: 150,
+			// 高度
+			&quot;height&quot;: 250,
+			// 距左右
+			&quot;hOffset&quot;: 10,
+			// 距下
+			&quot;vOffset&quot;: 40
+		},
+ 
+		mobile: {
+			// 移动端，false为关闭
+			&quot;show&quot;: true,
+			&quot;scale&quot;: 0.5
+		},
+ 
+		dialog: {
+		// 开启对话框，false为关闭
+			enable: true,
+			script: {
+				// 每空闲 10 秒钟，显示一条一言
+				&apos;every idle 10s&apos;: &apos;$hitokoto$&apos;,
+				// 当触摸到角色身体
+				&apos;tap body&apos;: &apos;哎呀！别碰我！&apos;,
+				// 当触摸到角色头部
+				&apos;tap face&apos;: &apos;你干嘛，哎呦。&apos;
+			}
+		}
+	});
+&lt;/script&gt;
+&lt;p&gt;后续主题稳定性就变得不可控了，请分析具体原因&lt;/p&gt;
 </content></entry><entry><title>文章上传确认</title><id>https://16916949.github.io/post/1785150854075-文章上传确认/</id><link href="https://16916949.github.io/post/1785150854075-文章上传确认/"/><updated>2026-07-27 19:14:04T00:00:00Z</updated><summary>文章 URL 默认格式
 Slug
 Short ID
@@ -289,11 +336,4 @@ body
 2.将写作日历改为可以显示三个月的数据，感觉当前月份还是有点少，换成三个月。
 3.主题导入按钮旁边可否添加文字“导入主题”，用一个圆角卡片包裹按钮跟文字。
 4.退出编辑动画恢复内容先淡出了两步动画(即先创建空白容器，然后再退出)，空白容器的创建速度能不能提高？&lt;/p&gt;
-</content></entry><entry><title>9</title><id>https://16916949.github.io/post/1784822518119-9/</id><link href="https://16916949.github.io/post/1784822518119-9/"/><updated>2026-07-24 00:01:51T00:00:00Z</updated><summary>1.日志管理界面加一个悬浮的fab按钮，图标为一个向上的箭头，用于浏览日志列表时一键返回顶部。
-2.目前评论系统配置虽然填好了配置，但实际部署后无法使用，显示了评论区，可以输入填写，但是无法提交或点击相关控件
-3.友链在本地的webview...</summary><content type="html">&lt;p&gt;1.日志管理界面加一个悬浮的fab按钮，图标为一个向上的箭头，用于浏览日志列表时一键返回顶部。
-2.目前评论系统配置虽然填好了配置，但实际部署后无法使用，显示了评论区，可以输入填写，但是无法提交或点击相关控件
-3.友链在本地的webview预览正常，但是部署到平台，通过域名访问时就会报错。
-4.进行上传部署时，一旦切换页面，就会停止部署，然后部署失败。能不能让切换其他页面后，部署过程仍然能接着进行(后台运行)，切到其他页面时，通过灵动岛通知展示实时上传进度，上传完成后，同时成功后销毁通知。
-5.部署历史回滚功能，我希望能增加自行选择回滚版本的选项，让用户能自行选择历史中某一个版本进行回滚操作。&lt;/p&gt;
 </content></entry></feed>
