@@ -1,7 +1,7 @@
 /* Fly Theme — skin switching + nav toggle + analytics + social links */
 (function () {
   // Apply skin class based on config value
-  var skin = "";
+  var skin = "white";
   document.body.classList.add("skin-" + skin);
 
   // Google Analytics injection
