@@ -24,14 +24,19 @@
         <p class="site-author">xiuhong</p>
     </div>
 </div>
-                    <nav class="site-nav"><a href="./" class="nav-link">首页</a>
+                    <nav class="site-nav">            <button class="nav-toggle" aria-label="菜单" aria-expanded="false">
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+            </button>
+            <div class="nav-links"><a href="./" class="nav-link">首页</a>
 <a href="archives/" class="nav-link">归档</a>
 <a href="tags/" class="nav-link">标签</a>
 <a href="links.html" class="nav-link">友链</a>
 <a href="post/1784822488687-test/" class="nav-link">页面</a>
 <a href="post/biao-qian-ce-shi/" class="nav-link" target="_blank">外部跳转页面</a>
 <a href="post/1785149298221-高考倒计时背景-基于HTML-CSS-J/" class="nav-link" target="_blank">对比测试</a>
-<a href="post/1785149224458-原网站文章/" class="nav-link">对照页面</a></nav>
+<a href="post/1785149224458-原网站文章/" class="nav-link">对照页面</a></div></nav>
                 </div>
             </header>
             <main class="container">
@@ -79,6 +84,19 @@
             </div>
             <!-- 主题声明的 JS 库（assets 中 type=js） -->
             
+            <!-- 导航溢出菜单切换脚本 -->
+            <script>
+(function(){
+    var toggle = document.querySelector('.nav-toggle');
+    var links = document.querySelector('.nav-links');
+    if (!toggle || !links) return;
+    toggle.addEventListener('click', function(){
+        var expanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', !expanded);
+        links.classList.toggle('nav-links-open');
+    });
+})();
+</script>
             <!-- 主题脚本 -->
             <script src="scripts/custom.js"></script>
         </body>
