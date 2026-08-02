@@ -1,5 +1,5 @@
 /* ============================================================
-   09-Pastel custom.js
+   08-Terminal custom.js
    非文章页的阅读进度条、回到顶部、图片放大
    文章页由 post.peb 内联脚本处理（通过 data-gridea-inline 标记跳过）
    ============================================================ */
@@ -111,35 +111,6 @@
             }
         } catch (e) {}
     });
-
-    // ===== 手机端底部导航"更多"溢出菜单 =====
-    var bottomNavMore = document.getElementById('bottom-nav-more');
-    var bottomNav = document.querySelector('.bottom-nav');
-    var overflowPanel = document.getElementById('bottom-nav-overflow-panel');
-    if (bottomNavMore && bottomNav) {
-        bottomNavMore.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            var isOpen = bottomNav.classList.toggle('bottom-nav-open');
-            bottomNavMore.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        });
-        // 点击溢出面板内的菜单项后自动关闭面板
-        if (overflowPanel) {
-            overflowPanel.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A' || e.target.closest('a')) {
-                    bottomNav.classList.remove('bottom-nav-open');
-                    bottomNavMore.setAttribute('aria-expanded', 'false');
-                }
-            });
-        }
-        // 点击其他区域关闭溢出菜单
-        document.addEventListener('click', function(e) {
-            if (!bottomNav.contains(e.target) && bottomNav.classList.contains('bottom-nav-open')) {
-                bottomNav.classList.remove('bottom-nav-open');
-                bottomNavMore.setAttribute('aria-expanded', 'false');
-            }
-        });
-    }
 
     // ===== 页面切换淡出动效（统一） =====
     if (!document.body.dataset.grideaPageTransition) {
