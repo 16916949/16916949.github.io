@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-width="720" data-tone="pink" data-card="pastel" data-width="720" data-tone="pink">
+<html lang="zh-CN" data-width="760" data-scanline="true" data-card="terminal" data-width="760" data-scanline="true">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,38 +19,85 @@
 
 </head>
 <body>
+    <div class="crt-scanlines" aria-hidden="true"></div>
     <header class="site-header">
-        <div class="container">
-            <div class="site-brand">
-                <img class="site-avatar" src="https://open.gridea.dev/media/gridea.png" alt="踏雪寻梅">
-                <div class="site-info">
-                    <a href="./" class="site-logo">踏雪寻梅</a>
-                    <p class="site-description">你好世界</p>
+        <div class="container terminal-window">
+            <div class="terminal-titlebar">
+                <span class="term-dot term-dot-red"></span>
+                <span class="term-dot term-dot-yellow"></span>
+                <span class="term-dot term-dot-green"></span>
+                <span class="term-title-text">user@gridea: ~</span>
+            </div>
+            <div class="terminal-body">
+                <div class="site-brand">
+                    <div class="prompt-line">
+                        <span class="prompt-user">user@gridea</span><span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$</span>
+                        <img class="site-avatar" src="https://open.gridea.dev/media/gridea.png" alt="踏雪寻梅">
+                        <span class="site-logo-wrap"><a href="./" class="site-logo">踏雪寻梅</a><span class="cursor-blink">_</span></span>
+                    </div>
+                    <p class="site-description"><span class="comment"># </span>你好世界</p>
                 </div>
+                
+                <nav class="site-nav">
+                    <button class="nav-toggle" aria-label="菜单" aria-expanded="false">
+                        <span class="nav-toggle-bar"></span>
+                        <span class="nav-toggle-bar"></span>
+                        <span class="nav-toggle-bar"></span>
+                    </button>
+                    <div class="nav-links">
+                        
+                        <a href="./" class="nav-link"><span class="nav-prefix">$</span> 首页</a>
+                        
+                        <a href="archives/" class="nav-link"><span class="nav-prefix">$</span> 归档</a>
+                        
+                        <a href="tags/" class="nav-link"><span class="nav-prefix">$</span> 标签</a>
+                        
+                        <a href="links.html" class="nav-link"><span class="nav-prefix">$</span> 友链</a>
+                        
+                        <a href="post/1784822488687-test/" class="nav-link"><span class="nav-prefix">$</span> 页面</a>
+                        
+                        <a href="post/biao-qian-ce-shi/" class="nav-link" target="_blank"><span class="nav-prefix">$</span> 外部跳转页面</a>
+                        
+                        <a href="post/1785149298221-高考倒计时背景-基于HTML-CSS-J/" class="nav-link" target="_blank"><span class="nav-prefix">$</span> 对比测试</a>
+                        
+                        <a href="post/1785149224458-原网站文章/" class="nav-link"><span class="nav-prefix">$</span> 对照页面</a>
+                        
+                    </div>
+                </nav>
+                
             </div>
         </div>
     </header>
     <main class="container">
-        
+        <div class="terminal-window main-window">
+            <div class="terminal-titlebar">
+                <span class="term-dot term-dot-red"></span>
+                <span class="term-dot term-dot-yellow"></span>
+                <span class="term-dot term-dot-green"></span>
+                <span class="term-title-text">test</span>
+            </div>
+            <div class="terminal-body main-body">
+                
 <article class="post-detail">
     <header class="post-header">
-        <h1 class="post-title">test</h1>
+        <p class="post-path"><span class="prompt-dollar">$</span> cat ./posts/1784822488687-test.md</p>
+        <h1 class="post-title"><span class="title-prefix">&gt;</span> test</h1>
         <div class="post-meta">
-            <span class="meta-item post-date"><span class="meta-icon">♡</span> 2026-07-24 00:01:21</span>
-            <span class="meta-item"><span class="meta-icon">✎</span> 211 字</span>
-            <span class="meta-item"><span class="meta-icon">⏱</span> 1 分钟</span>
+            <span class="meta-item post-date"><span class="comment">#</span> date: 2026-07-24 00:01:21</span>
+            <span class="meta-item"><span class="comment">#</span> 211 words</span>
+            <span class="meta-item"><span class="comment">#</span> ~1 min read</span>
         </div>
         <div class="post-tags">
             
-            <a href="tag/你好世界/" class="tag-chip">你好世界</a>
+            <a href="tag/你好世界/" class="tag-chip"><span class="bracket">[</span>你好世界<span class="bracket">]</span></a>
             
-            <a href="tag/1/" class="tag-chip">1</a>
+            <a href="tag/1/" class="tag-chip"><span class="bracket">[</span>1<span class="bracket">]</span></a>
             
-            <a href="tag/2/" class="tag-chip">2</a>
+            <a href="tag/2/" class="tag-chip"><span class="bracket">[</span>2<span class="bracket">]</span></a>
             
-            <a href="tag/3/" class="tag-chip">3</a>
+            <a href="tag/3/" class="tag-chip"><span class="bracket">[</span>3<span class="bracket">]</span></a>
             
-            <a href="tag/4/" class="tag-chip">4</a>
+            <a href="tag/4/" class="tag-chip"><span class="bracket">[</span>4<span class="bracket">]</span></a>
             
         </div>
     </header>
@@ -63,14 +110,14 @@
     <nav class="post-navigation">
         
         <div class="post-nav prev">
-            <span class="nav-label">← 上一篇</span>
-            <a href="post/1784822518119-9/" class="nav-title">9</a>
+            <span class="nav-label"><span class="prompt-dollar">$</span> cd ../prev</span>
+            <a href="post/1784822518119-9/" class="nav-title">&lt;- 9</a>
         </div>
         
         
         <div class="post-nav next">
-            <span class="nav-label">下一篇 →</span>
-            <a href="post/1784652258392-4/" class="nav-title">4</a>
+            <span class="nav-label">cd ../next <span class="prompt-dollar">$</span></span>
+            <a href="post/1784652258392-4/" class="nav-title">4 -&gt;</a>
         </div>
         
     </nav>
@@ -86,10 +133,16 @@ new Valine({
 </script>
 </article>
 
+            </div>
+        </div>
     </main>
     <footer class="site-footer">
         <div class="container">
-            <p><span class="footer-heart">♥</span> Powered by Gridea</p>
+            <div class="terminal-window footer-window">
+                <div class="terminal-body">
+                    <p><span class="prompt-dollar">$</span> <span class="comment"># </span>Powered by Gridea</p>
+                </div>
+            </div>
         </div>
     </footer>
     
@@ -205,89 +258,10 @@ new Valine({
     <div id="reading-progress-container" class="reading-progress-container">
         <div id="reading-progress" class="reading-progress-bar"></div>
     </div>
-    <button id="back-to-top" class="back-to-top" aria-label="回到顶部">↑</button>
+    <button id="back-to-top" class="back-to-top" aria-label="回到顶部">^</button>
     <div id="image-zoom-overlay" class="image-zoom-overlay">
         <img id="image-zoom-img" class="image-zoom-img" />
     </div>
-    
-    <nav class="bottom-nav">
-        
-        
-        
-        <a href="./" class="bottom-nav-item">
-            <span class="bottom-nav-label">首页</span>
-        </a>
-        
-        
-        
-        <a href="archives/" class="bottom-nav-item">
-            <span class="bottom-nav-label">归档</span>
-        </a>
-        
-        
-        
-        <a href="tags/" class="bottom-nav-item">
-            <span class="bottom-nav-label">标签</span>
-        </a>
-        
-        
-        
-        <a href="links.html" class="bottom-nav-item">
-            <span class="bottom-nav-label">友链</span>
-        </a>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <button type="button" class="bottom-nav-more" id="bottom-nav-more" aria-expanded="false" aria-label="更多菜单">
-            <span class="bottom-nav-more-icon">⋯</span>
-            <span class="bottom-nav-label">更多</span>
-        </button>
-        
-        <div class="bottom-nav-overflow-panel" id="bottom-nav-overflow-panel">
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            <a href="post/1784822488687-test/" class="bottom-nav-overflow-item">
-                页面
-            </a>
-            
-            
-            
-            <a href="post/biao-qian-ce-shi/" class="bottom-nav-overflow-item" target="_blank">
-                外部跳转页面
-            </a>
-            
-            
-            
-            <a href="post/1785149298221-高考倒计时背景-基于HTML-CSS-J/" class="bottom-nav-overflow-item" target="_blank">
-                对比测试
-            </a>
-            
-            
-            
-            <a href="post/1785149224458-原网站文章/" class="bottom-nav-overflow-item">
-                对照页面
-            </a>
-            
-            
-        </div>
-    </nav>
-    
     
     
     <script>
