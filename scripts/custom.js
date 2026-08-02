@@ -1,128 +1,165 @@
-/**
- * NexT 主题 JavaScript
- *
- * 从 NexT 主题的 source/js/ 提取的核心交互逻辑：
- * - 侧边栏切换
- * - 返回顶部
- * - 菜单切换（移动端）
- * - 代码块复制按钮
- * - 图片懒加载
- */
+/* ============================================================
+   09-Pastel custom.js
+   非文章页的阅读进度条、回到顶部、图片放大
+   文章页由 post.peb 内联脚本处理（通过 data-gridea-inline 标记跳过）
+   ============================================================ */
+(function() {
+    'use strict';
 
-(function () {
-  'use strict';
+    // ===== 阅读进度条 + 回到顶部（非文章页） =====
+    var backTopBtn = document.getElementById('back-to-top');
+    var progressBar = document.getElementById('reading-progress');
 
-  // ===== 侧边栏切换 =====
-  var sidebarToggle = document.querySelector('.sidebar-toggle');
-  var sidebar = document.querySelector('.sidebar');
-  if (sidebarToggle && sidebar) {
-    sidebarToggle.addEventListener('click', function () {
-      sidebar.classList.toggle('sidebar-active');
-      sidebarToggle.classList.toggle('sidebar-toggle-active');
-    });
-  }
+    var inlineHandled = (backTopBtn && backTopBtn.dataset.grideaInline === '1') ||
+                        (progressBar && progressBar.dataset.grideaInline === '1');
 
-  // ===== 返回顶部 =====
-  var backToTop = document.querySelector('.back-to-top');
-  if (backToTop) {
-    backToTop.addEventListener('click', function (e) {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    if (!inlineHandled) {
+        var backTopVisible = false;
+        var ticking = false;
+        var cachedScrollHeight = document.documentElement.scrollHeight;
+        var cachedClientHeight = document.documentElement.clientHeight;
+        var lastPercent = -1;
 
-    window.addEventListener('scroll', function () {
-      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      var scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      var percent = Math.round((scrollTop / scrollHeight) * 100);
-      var span = backToTop.querySelector('span');
-      if (span) {
-        span.textContent = Math.min(100, percent) + '%';
-      }
-      if (scrollTop > 100) {
-        backToTop.classList.add('back-to-top-on');
-      } else {
-        backToTop.classList.remove('back-to-top-on');
-      }
-    });
-  }
-
-  // ===== 移动端菜单切换 =====
-  var navToggle = document.querySelector('.site-nav-toggle .toggle');
-  var siteNav = document.querySelector('.site-nav');
-  if (navToggle && siteNav) {
-    navToggle.addEventListener('click', function () {
-      siteNav.classList.toggle('site-nav-active');
-      navToggle.classList.toggle('toggle-active');
-    });
-  }
-
-  // ===== 侧边栏 TOC / 概览 切换 =====
-  var tocTab = document.querySelector('.sidebar-nav-toc');
-  var overviewTab = document.querySelector('.sidebar-nav-overview');
-  var sidebarInner = document.querySelector('.sidebar-inner');
-  if (tocTab && overviewTab && sidebarInner) {
-    tocTab.addEventListener('click', function () {
-      sidebarInner.classList.remove('sidebar-overview-active');
-      sidebarInner.classList.add('sidebar-nav-active', 'sidebar-toc-active');
-    });
-    overviewTab.addEventListener('click', function () {
-      sidebarInner.classList.remove('sidebar-nav-active', 'sidebar-toc-active');
-      sidebarInner.classList.add('sidebar-overview-active');
-    });
-  }
-
-  // ===== 代码块复制按钮 =====
-  var codeBlocks = document.querySelectorAll('figure.highlight, pre code');
-  codeBlocks.forEach(function (block) {
-    var figure = block.closest('figure.highlight') || block.closest('pre');
-    if (!figure) return;
-
-    var btn = document.createElement('button');
-    btn.className = 'copy-btn';
-    btn.textContent = '复制';
-    btn.style.cssText = 'position:absolute;top:5px;right:5px;padding:2px 8px;font-size:12px;cursor:pointer;opacity:0;transition:opacity 0.2s;';
-
-    figure.style.position = 'relative';
-    figure.appendChild(btn);
-
-    figure.addEventListener('mouseenter', function () { btn.style.opacity = '1'; });
-    figure.addEventListener('mouseleave', function () { btn.style.opacity = '0'; });
-
-    btn.addEventListener('click', function () {
-      var code = figure.querySelector('td.code, code');
-      if (code) {
-        var text = code.textContent;
-        var textarea = document.createElement('textarea');
-        textarea.value = text;
-        document.body.appendChild(textarea);
-        textarea.select();
-        try {
-          document.execCommand('copy');
-          btn.textContent = '已复制';
-          setTimeout(function () { btn.textContent = '复制'; }, 2000);
-        } catch (e) {}
-        document.body.removeChild(textarea);
-      }
-    });
-  });
-
-  // ===== 动画效果（Animate.css 配合）=====
-  var animatedElements = document.querySelectorAll('.animated');
-  if (animatedElements.length > 0 && typeof IntersectionObserver !== 'undefined') {
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('fadeIn');
-          observer.unobserve(entry.target);
+        function recalcScrollMetrics() {
+            cachedScrollHeight = document.documentElement.scrollHeight;
+            cachedClientHeight = document.documentElement.clientHeight;
+            lastPercent = -1;
         }
-      });
+
+        function onScrollUpdate() {
+            var scrollTop = window.scrollY || document.documentElement.scrollTop;
+            if (backTopBtn) {
+                var shouldShow = scrollTop > 300;
+                if (shouldShow !== backTopVisible) {
+                    backTopVisible = shouldShow;
+                    if (shouldShow) backTopBtn.classList.add('visible');
+                    else backTopBtn.classList.remove('visible');
+                }
+            }
+            if (progressBar) {
+                var scrollRange = cachedScrollHeight - cachedClientHeight;
+                var percent = scrollRange > 0 ? (scrollTop / scrollRange) : 0;
+                var quantized = Math.round(percent * 200) / 200;
+                if (quantized !== lastPercent) {
+                    lastPercent = quantized;
+                    progressBar.style.transform = 'scaleX(' + quantized + ')';
+                }
+            }
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(onScrollUpdate);
+                ticking = true;
+            }
+        }, { passive: true });
+
+        var resizeTimer = null;
+        window.addEventListener('resize', function() {
+            if (resizeTimer) clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                recalcScrollMetrics();
+                if (!ticking) { window.requestAnimationFrame(onScrollUpdate); ticking = true; }
+            }, 200);
+        }, { passive: true });
+
+        onScrollUpdate();
+
+        if (backTopBtn) {
+            backTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+    }
+
+    // ===== 图片放大（非文章页） =====
+    var overlay = document.getElementById('image-zoom-overlay');
+    var zoomImg = document.getElementById('image-zoom-img');
+    if (overlay && overlay.dataset.grideaInline !== '1' && overlay && zoomImg) {
+        document.querySelectorAll('.post-content img, .post-feature img').forEach(function(img) {
+            img.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                zoomImg.src = img.src;
+                zoomImg.alt = img.alt || '';
+                overlay.classList.add('visible');
+                overlay.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        function closeZoom() {
+            overlay.classList.remove('visible');
+            overlay.setAttribute('aria-hidden', 'true');
+            zoomImg.src = '';
+            document.body.style.overflow = '';
+        }
+        overlay.addEventListener('click', closeZoom);
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeZoom();
+        });
+    }
+
+    // ===== 外部链接新窗口打开 =====
+    document.querySelectorAll('a[href^="http"]').forEach(function(a) {
+        if (a.target === '_blank') return;
+        try {
+            var href = a.href;
+            if (href && !href.includes(window.location.hostname) && !a.hasAttribute('target')) {
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+            }
+        } catch (e) {}
     });
-    animatedElements.forEach(function (el) { observer.observe(el); });
-  }
 
-  // ===== 链接外部打开 =====
-  document.querySelectorAll('a[target="_blank"]').forEach(function (a) {
-    a.setAttribute('rel', 'noopener');
-  });
+    // ===== 手机端底部导航"更多"溢出菜单 =====
+    var bottomNavMore = document.getElementById('bottom-nav-more');
+    var bottomNav = document.querySelector('.bottom-nav');
+    var overflowPanel = document.getElementById('bottom-nav-overflow-panel');
+    if (bottomNavMore && bottomNav) {
+        bottomNavMore.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var isOpen = bottomNav.classList.toggle('bottom-nav-open');
+            bottomNavMore.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+        // 点击溢出面板内的菜单项后自动关闭面板
+        if (overflowPanel) {
+            overflowPanel.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A' || e.target.closest('a')) {
+                    bottomNav.classList.remove('bottom-nav-open');
+                    bottomNavMore.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+        // 点击其他区域关闭溢出菜单
+        document.addEventListener('click', function(e) {
+            if (!bottomNav.contains(e.target) && bottomNav.classList.contains('bottom-nav-open')) {
+                bottomNav.classList.remove('bottom-nav-open');
+                bottomNavMore.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
 
+    // ===== 页面切换淡出动效（统一） =====
+    if (!document.body.dataset.grideaPageTransition) {
+        document.body.dataset.grideaPageTransition = '1';
+        document.addEventListener('click', function(e) {
+            var link = e.target.closest('a');
+            if (!link || link.target === '_blank') return;
+            var href = link.getAttribute('href');
+            if (!href || href.charAt(0) === '#' || href.indexOf('mailto:') === 0 || href.indexOf('javascript:') === 0) return;
+            if (link.hasAttribute('download')) return;
+            try {
+                var url = new URL(link.href, window.location.href);
+                if (url.origin !== window.location.origin) return;
+                if (url.href === window.location.href) return;
+            } catch (err) { return; }
+            e.preventDefault();
+            document.body.classList.add('gridea-page-leaving');
+            window.setTimeout(function() {
+                window.location.href = link.href;
+            }, 200);
+        }, true);
+    }
 })();
