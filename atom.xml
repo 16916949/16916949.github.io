@@ -1,55 +1,37 @@
-<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>踏雪寻梅</title><subtitle>你好世界</subtitle><id>https://16916949.github.io/</id><link href="https://16916949.github.io/"/><updated>2026-07-31T09:52:48Z</updated><entry><title>5</title><id>https://16916949.github.io/post/1784652274404-5/</id><link href="https://16916949.github.io/post/1784652274404-5/"/><updated>2026-07-22 00:44:30T00:00:00Z</updated><summary>空状态引导：无文章/无标签时的友好提示
+<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>踏雪寻梅</title><subtitle>你好世界</subtitle><id>https://16916949.github.io/</id><link href="https://16916949.github.io/"/><updated>2026-08-02T19:18:47Z</updated><entry><title>5</title><id>https://16916949.github.io/post/1784652274404-5/</id><link href="https://16916949.github.io/post/1784652274404-5/"/><updated>2026-07-22 00:44:30T00:00:00Z</updated><summary>空状态引导：无文章/无标签时的友好提示
 长按快捷菜单：文章卡片长按弹出编辑/删除/置顶/复制链接
 首次启动引导：新用户引导页</summary><content type="html">&lt;p&gt;空状态引导：无文章/无标签时的友好提示&lt;/p&gt;
 &lt;p&gt;长按快捷菜单：文章卡片长按弹出编辑/删除/置顶/复制链接&lt;/p&gt;
 &lt;p&gt;首次启动引导：新用户引导页&lt;/p&gt;
+</content></entry><entry><title>8月份的测试</title><id>https://16916949.github.io/post/8-yue-fen-ce-shi/</id><link href="https://16916949.github.io/post/8-yue-fen-ce-shi/"/><updated>2026-08-02 18:41:56T00:00:00Z</updated><summary>1.我们即将进行正式版的发布，在此之前，我们需要对软件全局进行打磨，精细化处理，去除臃肿无用的引用和和已经失效的功能代码。同时关于界面更新技术栈信息，可选择性地添加主题的技术栈。开源信息处添加本项目的开源地址:https://github....</summary><content type="html">&lt;p&gt;1.我们即将进行正式版的发布，在此之前，我们需要对软件全局进行打磨，精细化处理，去除臃肿无用的引用和和已经失效的功能代码。同时关于界面更新技术栈信息，可选择性地添加主题的技术栈。开源信息处添加本项目的开源地址:https://github.com/QingYu327/GrideaAndroid，然后再致谢下方添加开源许可内容组件，展示本项目参考或使用的开源项目许可信息
+2.这是一个问题:APP里面的文章编辑功能是可以显示封面图的，但是我发现已有的主题都不支持，后续外部开发者开发时可以支持的上吗？这个有接口吗？
+2.1  自定义主题界面的预览图没有生效，请解决。
+同时渐变流体主题删去，不再做进一步适配。马卡龙主题虽然使用溢出菜单进行除了固定四个菜单栏以外的新增菜单的收纳，不过我实际使用时只能显示一个菜单，其他的都被挡住了应该是，我希望点击溢出菜单按钮时能够自动展开，如果过多的时候可以进行滑动，这样子体验可能比较好。
+2.2  修改完主题后，将剩余主题直接内置进软件，作为初始主题使用，保留用户进行删除的权限，可以进行删除。
+3.这是一个对于日志管理系统的完善，因为进行release版本发布后，原有的logcat日志输出就会被关闭，之前你把主题渲染的这整个过程是使用logcat日志输出日志的，正式版发布后，为了方便用户和开发者进行主题使用或主题开发时，能够精准定位错误原因，我希望日志管理系统能全方面覆盖式记录主题的使用配置，渲染，预览，输出一整个系统流程，方便用户进行错误反馈或开发者精准定位错误信息，所以日志管理系统在正式版发布前，一个要做到全方面覆盖使用场景的日志记录，一个要日志记录，要详细能够记录调试级别的日志内容，日志信息包含量接近于logcat日志输出的内容，这个是非常重要的功能!一定要一定要完善这个优先级放在第一位!覆盖重要场景即可，一些意义不大的日志就简单记录一下就行了，比如点击事件什么的。
+4.原先的系统更新功能现在可以接着开发了，如果可以，请描述从如何开通 github release，到需要提供一些什么信息给你？简单描述一下该怎么做？我在提供信息给你。如果可以的话，你可以在过程中直接进行弹窗，我可以直接将相关信息粘贴给你。同时更新内容组件下，我希望能增加更新日志的内容，从release的更新内容文档中直接拉取更新日志，并在软件中显示。
+5.同时反馈系统的话，我打算使用邮箱提交的方式，具体逻辑如下:用户点击一键收集日志功能后后，然后下方就展示出我的个人邮箱，然后提供邮箱地址的可复制按钮，以及邮箱主题内容(提示词，提醒用户该以什么样的主题内容进行邮件发送)
+6.这是一个优化:我们目前已经更新了相当多的功能，可能有一些配置没有跟上进度，比如备份系统，我们新增一些设置上可能没有覆盖到，请检查并扩大覆盖范围，例如写作数据，文章，标签，友链，菜单，主题tab下的自定义配置界面的已填写内容，和偏好选择，以及设置页面的通用中的偏好设置，如果还有哪些是可以覆盖的，你可以自行斟酌加进去，只要在新设备上导入备份数据时，不会出现数据冲突就行。
+7.我向AI助手寻求了正式版软件发布的相关优化建议，你看看有哪些意见是我们的APP是可以选择采纳并优化的:
+①浏览全局确认Baseline profile设置有没有生效？
+②动画与 UI 流畅度（重点）&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;扫描所有 Animatable 和 Transition：检查是否有在 composition 中反复重建的动画实例，建议全部迁移到 derivedStateOf 或使用 remember 包裹。&lt;/li&gt;
+&lt;li&gt;检查重组频率：找出在滚动列表（LazyColumn）中没有使用 key 的 items，列出具体文件和行号。&lt;/li&gt;
+&lt;li&gt;过度绘制排查：检查 Compose 中是否有多余的 Modifier.background 重叠，以及 Modifier.shadow 是否出现在高频重绘的 Item 中。
+③硬件加速检查：确认 WebView 的 setLayerType(View.LAYER_TYPE_HARDWARE, null) 只在滑动时启用，闲置时释放（防止显存泄漏）。
+④发布构建配置（ProGuard/R8）&lt;/li&gt;
+&lt;li&gt;核对 build.gradle 中的 minifyEnabled true，输出一份混淆规则（ProGuard），确保 theme.json 的 GSON 解析类、Compose 的 @Parcelize 类不被擦除。&lt;/li&gt;
+&lt;li&gt;检查是否已添加 -keepnames class * extends androidx.compose.runtime.Composable 等核心 Compose 混淆规则。
+⑤扫描静态变量（object 或 companion object）中是否持有 WebView 或 Activity 引用，防止内存泄漏。检查 Application 类中是否初始化了不必要的第三方库（如有），建议改为 onCreate 中 postDelayed 懒加载。&lt;/li&gt;
+&lt;/ol&gt;
 </content></entry><entry><title>标签测试</title><id>https://16916949.github.io/post/biao-qian-ce-shi/</id><link href="https://16916949.github.io/post/biao-qian-ce-shi/"/><updated>2026-07-30 11:08:29T00:00:00Z</updated><summary>1.每次更换主题渲染，我希望点击生成时，能够清除前面渲染出来的文件和缓存，因为我在测试的时候经常需要更换主题查看效果，点击预览时，主题却没有变更，还是一直停留。同时网站文章列表也无法显示，其次，当文章超过10页存在分页切换时，我点击切换到存...</summary><content type="html">&lt;p&gt;1.每次更换主题渲染，我希望点击生成时，能够清除前面渲染出来的文件和缓存，因为我在测试的时候经常需要更换主题查看效果，点击预览时，主题却没有变更，还是一直停留。同时网站文章列表也无法显示，其次，当文章超过10页存在分页切换时，我点击切换到存放在第二页的文章，会提示404。相关日志我已提交到根目录，请查收。
 2.关于-软件版本处，添加对当前软件发布版本的展示(debug or release版本)，使用动态检测，这样子无需发布前需要修改这里的字符。
 3.这是一个问题:阅读当前的日志管理以及相关调试的页面的代码，我想问一下，当发布成release版本后，原先的日志管理以及调试开关是否还可以生效。因为我想在发布成正式版本后，还可以进行对软件内部的调试以及相关信息的抓取。
 然后我问了DeepSeek，他建议我这些开关在正式版本中不要展示，但是可以通过像安卓手机一样，通过连续点击版本号的方法，显示隐藏的调试入口。同时他和我说发布成release版本后，日志的输出和储存会有限制，Web view开关的话就可以正常用，但是建议我进行隐藏。同时我希望正式版本也能抓取到logcat日志，比如正式版是不可以收集logcat日志的，不过我想加一个开关，然后就可以尽量能读取，但也被告知有难度。
 4.我在工作目录里新建了一个文件夹“桌面端文件概览”，其中“Gridea”文件夹是桌面端软件的配置文件，里面包含文章，文章图片，网站头像，网站图标，还有主题目录，以及还有一个“static”文件夹，可以存放用户自行构建的网页，渲染时会一并出现在站点输出目录，你后续可以查看输出目录里面是可以找得到的。“.gridea”文件夹是桌面端软件处理了“Gridea”文件夹里面的配置文件，从而输出的静态站点文件。请你仔细阅读这两个文件夹，理清楚从配置文件怎么变成站点输出文件的整个转换逻辑？目前我们安卓APP的站点输出产生的文件树感觉还是有点乱，请参考桌面端的转换逻辑进行改进。
 5.将主题-基础配置-URL与路径这一组件的功能内容进行改进，细化按钮说明，优化按钮功能名称，做到和桌面端软件一样的清晰易懂。
-6.我在测试主题新增加的自定义js时，我输入了以下代码&lt;script src=&quot;https://l2dwidget.js.org/lib/L2Dwidget.min.js&quot;&gt;&lt;/script&gt;&lt;/p&gt;
-&lt;script type=&quot;text/javascript&quot;&gt;
-	L2Dwidget
-	.on(&apos;*&apos;, (name) =&gt; {
-	console.log(&apos;%c EVENT &apos; + &apos;%c -&gt; &apos; + name, &apos;background: #222; color: yellow&apos;, &apos;background: #fff; color: #000&apos;)
-	})
-	.init({
-		display: {
-			// 居左
-			&quot;position&quot;: &quot;right&quot;,
-			// 宽度
-			&quot;width&quot;: 150,
-			// 高度
-			&quot;height&quot;: 250,
-			// 距左右
-			&quot;hOffset&quot;: 10,
-			// 距下
-			&quot;vOffset&quot;: 40
-		},
- 
-		mobile: {
-			// 移动端，false为关闭
-			&quot;show&quot;: true,
-			&quot;scale&quot;: 0.5
-		},
- 
-		dialog: {
-		// 开启对话框，false为关闭
-			enable: true,
-			script: {
-				// 每空闲 10 秒钟，显示一条一言
-				&apos;every idle 10s&apos;: &apos;$hitokoto$&apos;,
-				// 当触摸到角色身体
-				&apos;tap body&apos;: &apos;哎呀！别碰我！&apos;,
-				// 当触摸到角色头部
-				&apos;tap face&apos;: &apos;你干嘛，哎呦。&apos;
-			}
-		}
-	});
-&lt;/script&gt;
-&lt;p&gt;后续主题稳定性就变得不可控了，请分析具体原因&lt;/p&gt;
+6.我在测试主题新增加的自定义js时，我输入了以下代码&lt;/p&gt;
 </content></entry><entry><title>文章上传确认</title><id>https://16916949.github.io/post/1785150854075-文章上传确认/</id><link href="https://16916949.github.io/post/1785150854075-文章上传确认/"/><updated>2026-07-27 19:14:04T00:00:00Z</updated><summary>文章 URL 默认格式
 Slug
 Short ID
@@ -330,10 +312,4 @@ body
 2.文章编辑页面退出时，目前是退出时，先让内容消失，再让空容器收缩。我想进一步删减动画，把先让内容消失，变成空容器这一步，直接将原页面进行收缩。然后将退出动画的总耗时从60毫秒降到50毫秒。
 3.将导入主题的圆角卡片按钮，移动至“主题”页面的右上角，原先因为按钮移动后，留下来的空白区域删去。
 4.进入全屏编辑是，工具栏跟任务栏之间还是存在一个任务栏高度的空白，请删去这部分空白区域。&lt;/p&gt;
-</content></entry><entry><title>10</title><id>https://16916949.github.io/post/1784822528811-10/</id><link href="https://16916949.github.io/post/1784822528811-10/"/><updated>2026-07-24 00:02:03T00:00:00Z</updated><summary>1.之前有优化过文章首页和标签页的未创建提示，请按照文章首页和标签页的优化(可查看项目记忆或者前几轮对话)，给菜单和友链页面也修改同样风格的未创建提示。
-2.将写作日历改为可以显示三个月的数据，感觉当前月份还是有点少，换成三个月。
-3.主题...</summary><content type="html">&lt;p&gt;1.之前有优化过文章首页和标签页的未创建提示，请按照文章首页和标签页的优化(可查看项目记忆或者前几轮对话)，给菜单和友链页面也修改同样风格的未创建提示。
-2.将写作日历改为可以显示三个月的数据，感觉当前月份还是有点少，换成三个月。
-3.主题导入按钮旁边可否添加文字“导入主题”，用一个圆角卡片包裹按钮跟文字。
-4.退出编辑动画恢复内容先淡出了两步动画(即先创建空白容器，然后再退出)，空白容器的创建速度能不能提高？&lt;/p&gt;
 </content></entry></feed>
