@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-width="760" data-columns="3" data-drop-cap="false" data-style="sakuranote" data-drawer="true" data-tape="true" data-grid="true" data-rotate="true" data-pins="true">
+<html lang="zh-CN" data-width="760" data-columns="3" data-drop-cap="false" data-style="darkgallery" data-mega="true" data-quote="true">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,34 +10,31 @@
     <meta name="author" content="xiuhong">
     <link rel="icon" href="https://open.gridea.dev/media/gridea.png">
     <base href="./">
-    <style>:root{--accent:#f48fb1};</style>
+    <style>:root{--accent:#c9a962};</style>
     
     <style>/* ============================================================
-   11-SakuraNote 樱花手账
-   少女手账便签风：方格纸 + 胶带图钉 + 错位便签 + 左抽屉
+   10-DarkGallery 暗廊
+   暗黑美术馆：纯黑底 + 古金 + Cormorant 斜体 + 四列巨型菜单
    ============================================================ */
 {# C7：CSS 模板化 #}
 :root {
-    --bg: #fff9f5;
-    --paper: #fffdfa;
-    --pink: #ffb7c5;
-    --pink-d: ;
-    --pink-l: #fce4ec;
-    --matcha: #7eb67e;
-    --matcha-l: #e8f5e9;
-    --yellow: #fff59d;
-    --blue: #90caf9;
-    --purple: #ce93d8;
-    --ink: #5d4e4e;
-    --text-2: #9e8e8e;
-    --border: #f3dbe3;
+    --bg: #0d0d0d;
+    --card: #161616;
+    --bg-light: #1a1a1a;
+    --text: #e8e0d5;
+    --text-2: #8a8075;
+    --gold: ;
+    --gold-light: #e0c98f;
+    --gold-dark: #9a7d3f;
+    --wine: #8b2635;
+    --border: #2a2a2a;
     --content-width: px;
-    --radius: 14px;
-    --shadow: 0 6px 18px rgba(93, 78, 78, 0.10);
-    --shadow-soft: 0 10px 26px rgba(244, 143, 177, 0.22);
-    --transition: 0.28s ease;
-    --font-round: "M PLUS Rounded 1c", "ZCOOL KuaiLe", "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
-    --font-hand: Caveat, "ZCOOL KuaiLe", "Segoe Script", cursive;
+    --max-width: 1200px;
+    --radius: 2px;
+    --transition: 0.3s ease;
+    --font-display: "Playfair Display", "Noto Serif SC", "Songti SC", SimSun, serif;
+    --font-body: "Cormorant Garamond", "Noto Serif SC", "Songti SC", Georgia, serif;
+    --font-mono: "Courier New", Courier, Consolas, monospace;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; touch-action: pan-y; }
@@ -46,359 +43,347 @@ pre, code { touch-action: pan-x pan-y; }
 
 html { scroll-behavior: smooth; }
 body {
-    font-family: var(--font-round);
-    background-color: var(--bg);
-    color: var(--ink);
-    line-height: 1.8;
-    font-size: 16px;
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.85;
+    font-size: 17px;
     /* FAB 悬浮方案：移除全局底部占位 */
     animation: grideaPageEnter 0.3s ease both;
 }
-html[data-grid="true"] body {
-    background-image:
-        linear-gradient(rgba(244, 143, 177, 0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(244, 143, 177, 0.08) 1px, transparent 1px);
-    background-size: 24px 24px;
-}
-body.drawer-open { overflow: hidden; }
 body.gridea-page-leaving { animation: grideaPageLeave 0.2s ease forwards; }
 @keyframes grideaPageEnter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes grideaPageLeave { from { opacity: 1; } to { opacity: 0; } }
 
-a { color: var(--pink-d); text-decoration: none; transition: color var(--transition); }
-a:hover { color: var(--matcha); }
+a { color: var(--gold); text-decoration: none; transition: color var(--transition); }
+a:hover { color: var(--gold-light); }
 img { max-width: 100%; height: auto; }
-.container-narrow { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 40px; }
+.page { padding-top: 30px; padding-bottom: 60px; }
 
-/* ===== 粉色圆钮 ===== */
-.hamburger {
-    position: fixed; top: 16px; left: 16px; z-index: 260;
-    width: 48px; height: 48px; border-radius: 50%;
-    background: var(--pink-d); border: 2px solid #fff; cursor: pointer;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
-    box-shadow: 0 5px 14px rgba(244, 143, 177, 0.45);
-    transition: transform 0.25s;
+/* ===== 顶栏 ===== */
+.top-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 160; height: 70px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 36px;
+    background: rgba(13, 13, 13, 0.88);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
 }
-.hamburger:hover { transform: scale(1.06); }
-.hamburger { z-index: 999 !important; }
-.hamburger-bar { width: 20px; height: 2.5px; background: #fff; border-radius: 2px; transition: all 0.25s; }
-.hamburger[aria-expanded="true"] .hamburger-bar:nth-child(1) { transform: translateY(4.5px) rotate(45deg); }
-.hamburger[aria-expanded="true"] .hamburger-bar:nth-child(2) { transform: translateY(-4.5px) rotate(-45deg); }
-html[data-drawer="false"] .hamburger { display: none; }
+.gallery-logo { font-family: var(--font-display); font-style: italic; font-weight: 900; font-size: 1.35rem; color: var(--gold); letter-spacing: 0.06em; }
+.gallery-logo:hover { color: var(--gold-light); }
+.site-nav { display: flex; align-items: center; gap: 16px; }
+.nav-links-top { display: flex; align-items: center; gap: 4px; }
+.nav-link {
+    display: inline-block; padding: 8px 14px; color: var(--text-2); font-size: 0.95rem;
+    border: 1px solid transparent; border-radius: 999px;
+}
+.nav-link:hover { color: var(--gold); border-color: var(--border); }
+.nav-icon { font-size: 1rem; color: var(--text-2); }
+.nav-toggle {
+    display: none; width: 40px; height: 40px; border-radius: 50%;
+    border: 1px solid var(--gold); background: rgba(201, 169, 98, 0.14); cursor: pointer;
+    flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+}
+.nav-toggle-bar { width: 18px; height: 2px; background: #fff; transition: all 0.25s; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) { transform: translateY(4px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) { transform: translateY(-4px) rotate(-45deg); }
 
-/* ===== 左抽屉 ===== */
-.drawer-backdrop {
-    position: fixed; inset: 0; background: rgba(93, 78, 78, 0.35);
-    opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 240;
+/* 四列巨型菜单 */
+.mega-trigger { position: relative; }
+.mega-panel {
+    display: grid; position: absolute; top: calc(100% + 12px); right: -20px;
+    width: 900px; grid-template-columns: 1fr 1fr 1fr 1.2fr; gap: 26px;
+    background: var(--bg-light); border: 1px solid var(--border);
+    padding: 26px 28px; z-index: 170;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+    opacity: 0; visibility: hidden; transform: translateY(8px);
+    transition: opacity 0.25s ease, visibility 0.25s, transform 0.25s ease;
 }
-body.drawer-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
-.drawer {
-    position: fixed; top: 0; left: 0; bottom: 0; z-index: 250;
-    width: 300px; background: var(--paper); color: var(--ink);
-    transform: translateX(-105%); transition: transform 0.35s ease;
-    padding: 34px 24px 24px; overflow-y: auto;
-    box-shadow: 12px 0 34px rgba(93, 78, 78, 0.18);
-    border-radius: 0 18px 18px 0;
+.mega-trigger:hover .mega-panel, .mega-trigger:focus-within .mega-panel, .mega-panel.open { opacity: 1; visibility: visible; transform: none; }
+.mega-btn { cursor: pointer; user-select: none; }
+.mega-title {
+    font-family: var(--font-display); font-style: italic; font-size: 0.95rem;
+    color: var(--gold); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 12px;
 }
-.drawer.nav-links-open, .drawer.is-open, .drawer.open { transform: translateX(0); }
-.tape {
-    height: 34px; width: 120px; position: absolute;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.1)), var(--pink-d);
-    box-shadow: 0 3px 8px rgba(93, 78, 78, 0.18);
-    clip-path: polygon(2% 0, 98% 6%, 100% 100%, 0 94%);
-    opacity: 0.92;
+.mega-link { display: block; padding: 6px 0; color: var(--text-2); font-size: 0.95rem; }
+.mega-link:hover { color: var(--gold); padding-left: 6px; }
+.mega-note { display: block; padding: 4px 0; color: var(--text-2); font-size: 0.9rem; }
+.mega-feature {
+    background: linear-gradient(160deg, var(--gold-dark), var(--wine) 70%);
+    padding: 20px; color: #fff;
 }
-html[data-tape="false"] .tape { display: none; }
-.tape-drawer { top: 16px; left: 50%; transform: translateX(-50%) rotate(-3deg); }
-.drawer-avatar {
-    width: 82px; height: 82px; border-radius: 50%; margin: 18px auto 10px;
-    overflow: hidden; border: 4px solid var(--pink-l);
-    box-shadow: 0 0 0 3px var(--pink-d), var(--shadow);
-    display: flex; align-items: center; justify-content: center; background: var(--pink-l);
-}
-.drawer-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.avatar-fallback { font-size: 2rem; }
-.drawer-name { text-align: center; font-family: var(--font-hand); font-size: 1.5rem; color: var(--ink); }
-.drawer-sub { text-align: center; font-size: 0.76rem; color: var(--text-2); margin-bottom: 14px; }
-.drawer-nav { display: flex; flex-direction: column; }
-.drawer-link {
-    display: flex; align-items: center; gap: 12px; padding: 10px 6px;
-    border-bottom: 1px dashed var(--border); color: var(--ink); font-size: 0.98rem;
-}
-.drawer-link:hover { color: var(--pink-d); padding-left: 12px; }
-.drawer-icon {
-    width: 26px; height: 26px; border-radius: 50%; background: var(--pink-l);
-    color: var(--pink-d); font-size: 0.68rem; display: flex; align-items: center; justify-content: center;
-}
-.drawer-tags { margin-top: 16px; }
-.drawer-tags-title { font-size: 0.76rem; color: var(--text-2); letter-spacing: 0.12em; margin-bottom: 8px; }
-.drawer-tag-cloud { display: flex; flex-wrap: wrap; gap: 7px; }
-.drawer-tag {
-    font-size: 0.74rem; background: var(--yellow); color: var(--ink);
-    border-radius: 999px; padding: 3px 11px; transform: rotate(-1deg);
-}
-.drawer-tag:nth-child(3n) { background: var(--matcha-l); color: var(--matcha); }
-.drawer-tag:nth-child(2n) { background: var(--pink-l); color: var(--pink-d); }
-.drawer-social { display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
-.social-link {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 34px; height: 34px; border: 1px solid var(--border); border-radius: 50%;
-    color: var(--text-2);
-}
-.social-link:hover { color: var(--pink-d); border-color: var(--pink-d); }
-.social-link svg { display: block; }
+.mega-feature .mega-title { color: #fff; border-color: rgba(255, 255, 255, 0.3); }
+.mega-feature-text { display: block; font-family: var(--font-display); font-style: italic; font-size: 1.3rem; margin-bottom: 8px; }
+.mega-feature .mega-note { color: rgba(255, 255, 255, 0.8); }
+html[data-mega="false"] .mega-trigger { display: none; }
 
-/* ===== 居中标题栏 ===== */
-.note-header {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(255, 249, 245, 0.88);
-    backdrop-filter: blur(8px);
-    text-align: center; padding: 16px 0; border-bottom: 1px solid var(--border);
+/* ===== hero ===== */
+.hero {
+    min-height: 100vh; padding: 120px 40px 80px;
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 50px; align-items: center;
+    max-width: var(--max-width); margin: 0 auto;
 }
-.note-title { font-family: var(--font-round); font-size: 1.2rem; letter-spacing: 0.12em; color: var(--ink); font-weight: 700; }
-.note-title:hover { color: var(--pink-d); }
-.main { max-width: 1080px; margin: 0 auto; padding: 30px 24px 50px; }
+.hero-kicker { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.3em; color: var(--text-2); }
+.hero-title { font-family: var(--font-display); font-style: italic; font-weight: 900; font-size: clamp(2.6rem, 6vw, 4.4rem); line-height: 1.15; margin-top: 16px; color: var(--text); }
+.hero-title em { color: var(--gold); }
+.hero-desc { color: var(--text-2); margin-top: 20px; max-width: 420px; font-size: 1.1rem; }
+.hero-cta {
+    display: inline-block; margin-top: 34px; border: 1px solid var(--gold); color: var(--gold);
+    padding: 13px 34px; letter-spacing: 0.08em; transition: all 0.3s;
+}
+.hero-cta:hover { background: var(--gold); color: var(--bg); }
+.hero-art { position: relative; height: 520px; }
+.frame {
+    position: absolute; border: 1px solid var(--gold); padding: 14px;
+}
+.frame-inner { display: block; width: 100%; height: 100%; background: linear-gradient(150deg, #2b2b2b, #141414); }
+.frame-1 { width: 360px; height: 460px; top: 0; right: 20px; transform: rotate(1.6deg); }
+.frame-2 { width: 300px; height: 400px; bottom: 0; left: 0; transform: rotate(-2.4deg); background: rgba(13, 13, 13, 0.6); }
 
-/* ===== 便签 hero ===== */
-.hero-note {
-    position: relative; max-width: 720px; margin: 0 auto 40px;
-    background: var(--paper); border: 2px solid var(--pink);
-    border-radius: var(--radius); padding: 40px 34px 32px; text-align: center;
-    box-shadow: var(--shadow-soft);
+/* ===== 大引文 ===== */
+.big-quote {
+    position: relative; text-align: center; padding: 90px 20px;
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    max-width: 900px; margin: 0 auto 70px;
 }
-.tape-hero { top: -16px; left: 50%; transform: translateX(-50%) rotate(-2deg); }
-.sticker {
-    position: absolute; top: -18px; right: 22px;
-    width: 52px; height: 52px; border-radius: 50%;
-    background: var(--yellow); display: flex; align-items: center; justify-content: center;
-    font-size: 1.5rem; box-shadow: var(--shadow); transform: rotate(8deg);
+.quote-mark {
+    position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+    font-family: var(--font-display); font-size: 8rem; line-height: 1; color: rgba(201, 169, 98, 0.14);
 }
-.hero-title { font-size: 1.9rem; font-weight: 700; color: var(--ink); }
-.hero-desc { color: var(--text-2); margin-top: 10px; }
-.hero-tags { display: flex; justify-content: center; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
-.hero-tag {
-    background: var(--pink-l); color: var(--pink-d); border-radius: 999px;
-    padding: 7px 18px; font-size: 0.86rem;
-}
-.hero-tag:nth-child(2) { background: var(--matcha-l); color: var(--matcha); transform: rotate(1deg); }
-.hero-tag:nth-child(3) { background: #fff3e0; color: #ef9a5a; transform: rotate(-1deg); }
+.quote-text { font-family: var(--font-display); font-style: italic; font-size: 2rem; color: var(--text); position: relative; }
+.quote-attr { color: var(--text-2); margin-top: 14px; font-size: 0.95rem; }
+html[data-quote="false"] .big-quote { display: none; }
 
-/* ===== 便签网格 ===== */
-.notes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-html[data-columns="1"] .notes { grid-template-columns: 1fr; }
-html[data-columns="2"] .notes { grid-template-columns: repeat(2, 1fr); }
-.note-card {
-    position: relative; background: var(--paper);
-    border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 20px 20px 18px; color: var(--ink); box-shadow: var(--shadow);
-    display: flex; flex-direction: column; gap: 9px;
-    transition: transform var(--transition), box-shadow var(--transition);
+/* ===== 画廊卡 ===== */
+.gallery {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px;
+    max-width: var(--max-width); margin: 0 auto; padding: 0 40px 40px;
 }
-html[data-rotate="true"] .note-card:nth-child(2n) { background: var(--yellow); transform: rotate(-1deg); }
-html[data-rotate="true"] .note-card:nth-child(3n) { background: var(--matcha-l); transform: rotate(1deg); }
-.note-card:hover { transform: translateY(-4px) rotate(0deg); box-shadow: var(--shadow-soft); color: var(--ink); }
-.pin {
-    position: absolute; top: -7px; left: 50%; transform: translateX(-50%);
-    width: 15px; height: 15px; border-radius: 50%;
-    background: radial-gradient(circle at 32% 30%, #ffd5e0, var(--pink-d) 60%, #d96f96);
-    box-shadow: 0 3px 4px rgba(93, 78, 78, 0.35); z-index: 3; pointer-events: none;
+html[data-columns="1"] .gallery { grid-template-columns: 1fr; }
+html[data-columns="2"] .gallery { grid-template-columns: repeat(2, 1fr); }
+.art-card { color: var(--text); display: flex; flex-direction: column; gap: 12px; }
+.art-card { min-width: 0; }
+.art-cover {
+    position: relative; aspect-ratio: 3 / 4; overflow: hidden;
+    background: var(--card); border: 1px solid var(--border);
 }
-html[data-pins="false"] .pin { display: none; }
-.note-head { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.78rem; }
-.note-date { font-family: var(--font-hand); font-size: 1.05rem; color: var(--pink-d); }
-.note-emoji { font-size: 0.9rem; }
-.note-cover { border-radius: 10px; overflow: hidden; }
-.note-cover img { width: 100%; height: 130px; object-fit: cover; display: block; }
-.note-title { font-size: 1.08rem; line-height: 1.45; }
-.note-abstract {
-    font-size: 0.86rem; color: var(--text-2); flex: 1;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    font-weight: normal;
-    overflow-wrap: break-word;
-    word-break: break-word;
+.art-cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+.art-gradient { display: block; width: 100%; height: 100%; background: linear-gradient(160deg, #3a3a3a, #151515); }
+.art-cover.cover-fallback img, .trip-cover.cover-fallback img, .featured-cover.cover-fallback img { display: none; }
+.art-mask {
+    position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 22px; background: linear-gradient(transparent 45%, rgba(0, 0, 0, 0.85));
+    opacity: 0; transition: opacity 0.35s ease;
 }
-.note-abstract * { font-weight: normal !important; }
-.note-abstract p { margin: 0; }
-.read-pill {
-    display: inline-block; font-size: 0.72rem; color: var(--pink-d);
-    border: 1px solid var(--pink); border-radius: 999px; padding: 5px 14px;
-}
-.note-card:hover .read-pill { background: var(--pink-d); color: #fff; }
-.note-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.note-tag {
-    font-size: 0.7rem; background: var(--pink-l); color: var(--pink-d);
-    border-radius: 999px; padding: 2px 10px;
-}
-.note-tag:nth-child(2n) { background: var(--matcha-l); color: var(--matcha); }
+.art-card:hover .art-mask { opacity: 1; }
+.art-card:hover .art-cover img { transform: scale(1.05); }
+.art-title { font-family: var(--font-display); font-style: italic; font-size: 1.2rem; color: #fff; }
+.art-date { font-family: var(--font-mono); font-size: 0.74rem; color: var(--gold); margin-top: 4px; }
+.art-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: 0.84rem; }
+.art-no { font-family: var(--font-display); font-style: italic; color: var(--gold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.art-read { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-2); white-space: nowrap; }
+.art-tags { display: flex; gap: 10px; font-style: normal; }
+.art-tags em { color: var(--gold-dark); font-style: normal; font-size: 0.8rem; }
 .empty {
-    border: 2px dashed var(--pink); background: var(--paper); border-radius: var(--radius);
-    padding: 40px; text-align: center; color: var(--text-2); grid-column: 1 / -1;
+    border: 1px dashed var(--border); padding: 44px; text-align: center;
+    color: var(--text-2); grid-column: 1 / -1; font-family: var(--font-mono);
 }
 
 /* ===== 分页 ===== */
-.pagination { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 38px; font-size: 0.9rem; }
-.page-prev, .page-next {
-    background: var(--paper); border: 2px solid var(--pink); border-radius: 999px;
-    color: var(--pink-d); padding: 9px 22px; box-shadow: var(--shadow);
-}
-.page-prev:hover, .page-next:hover { background: var(--pink-d); border-color: var(--pink-d); color: #fff; }
-.page-info { color: var(--text-2); font-size: 0.84rem; }
+.pagination { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 10px 40px 50px; font-family: var(--font-mono); font-size: 0.8rem; }
+.page-prev, .page-next { border: 1px solid var(--border); color: var(--text-2); padding: 9px 22px; }
+.page-prev:hover, .page-next:hover { border-color: var(--gold); color: var(--gold); }
+.page-info { color: var(--text-2); letter-spacing: 0.12em; }
 
 /* ===== 文章详情 ===== */
-.post-detail { max-width: var(--content-width); margin: 0 auto; }
-.note-paper {
-    position: relative; background: var(--paper); border: 1px solid var(--border);
-    border-radius: var(--radius); box-shadow: var(--shadow-soft); padding: 40px 40px 32px;
-}
-.tape-post { top: -15px; left: 50%; transform: translateX(-50%) rotate(-2deg); }
-.post-header { text-align: center; border-bottom: 2px dashed var(--pink); padding-bottom: 20px; margin-bottom: 24px; }
-.post-meta { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; font-size: 0.82rem; color: var(--text-2); }
-.post-title { font-size: 1.85rem; font-weight: 700; margin-top: 10px; color: var(--ink); }
-.post-tags { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-.tag-chip { font-size: 0.76rem; background: var(--pink-l); color: var(--pink-d); border-radius: 999px; padding: 4px 13px; }
-.tag-chip:hover { background: var(--matcha-l); color: var(--matcha); }
-.post-feature { margin-bottom: 24px; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+.post-detail { max-width: var(--content-width); margin: 0 auto; padding: 100px 24px 40px; }
+.post-header { text-align: center; border-bottom: 1px solid var(--border); padding-bottom: 24px; margin-bottom: 28px; }
+.post-kicker { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.2em; color: var(--text-2); }
+.post-title { font-family: var(--font-display); font-style: italic; font-weight: 700; font-size: 2.2rem; line-height: 1.35; margin-top: 10px; }
+.post-title em { color: var(--gold); }
+.post-meta { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 14px; font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-2); }
+.post-tags { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.tag-chip { font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold); border: 1px solid var(--border); padding: 3px 12px; }
+.tag-chip:hover { border-color: var(--gold); color: var(--gold); }
+.post-feature { margin-bottom: 26px; border: 1px solid var(--border); }
 .post-feature-img { width: 100%; display: block; }
-.post-toc { background: var(--pink-l); border-radius: 12px; padding: 15px 20px; margin-bottom: 24px; font-size: 0.9rem; }
-.post-toc a { color: var(--pink-d); }
+.post-toc { border: 1px solid var(--border); background: var(--bg-light); padding: 15px 19px; margin-bottom: 26px; font-size: 0.95rem; }
+.post-toc a { color: var(--gold); }
 
-.post-content { font-size: 1.03rem; }
-.post-content h2 { font-size: 1.4rem; font-weight: 700; color: var(--pink-d); margin: 32px 0 13px; }
-.post-content h3 { font-size: 1.15rem; color: var(--matcha); margin: 24px 0 10px; }
-.post-content p { margin: 0 0 16px; }
-.post-content a { border-bottom: 1px dashed var(--pink); }
-.post-content ul, .post-content ol { margin: 0 0 16px 26px; }
+.post-content { font-size: 1.12rem; }
+.post-content h2 { font-family: var(--font-display); font-style: italic; font-size: 1.55rem; color: var(--gold); margin: 36px 0 14px; }
+.post-content h3 { font-size: 1.25rem; color: var(--text); margin: 26px 0 10px; }
+.post-content p { margin: 0 0 17px; }
+.post-content a { border-bottom: 1px solid rgba(201, 169, 98, 0.4); }
+.post-content ul, .post-content ol { margin: 0 0 17px 26px; }
 .post-content li { margin-bottom: 6px; }
 .post-content blockquote {
-    background: var(--matcha-l); border-left: 5px solid var(--matcha);
-    border-radius: 0 12px 12px 0; padding: 14px 20px; margin: 0 0 16px; color: var(--ink);
+    border-left: 3px solid var(--gold); background: var(--bg-light);
+    padding: 16px 22px; margin: 0 0 17px; font-style: italic; color: var(--text-2);
 }
 .post-content pre {
-    background: var(--pink-l); border: 1px solid var(--border); border-left: 5px solid var(--pink-d);
-    border-radius: 12px; padding: 16px 18px; overflow-x: auto; margin: 0 0 16px; position: relative; font-size: 0.88rem;
+    background: var(--bg-light); border: 1px solid var(--border); border-left: 3px solid var(--gold);
+    padding: 16px 18px; overflow-x: auto; margin: 0 0 17px; position: relative; font-size: 0.9rem;
 }
-.post-content code { font-family: "SF Mono", "Cascadia Code", Consolas, monospace; font-size: 0.88em; background: rgba(244, 143, 177, 0.16); padding: 2px 5px; border-radius: 6px; }
+.post-content code { font-family: var(--font-mono); font-size: 0.88em; background: rgba(201, 169, 98, 0.12); padding: 2px 5px; }
 .post-content pre code { background: none; padding: 0; }
-.post-content img { border-radius: 12px; }
-.post-content hr { border: none; height: 2px; margin: 28px 0; background: linear-gradient(90deg, transparent, var(--pink), transparent); border-radius: 2px; }
-.post-content table { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-size: 0.94rem; }
+.post-content img { border: 1px solid var(--border); }
+.post-content hr { border: none; border-top: 1px solid var(--border); margin: 30px 0; }
+.post-content table { width: 100%; border-collapse: collapse; margin: 0 0 17px; font-size: 0.98rem; }
 .post-content th, .post-content td { border: 1px solid var(--border); padding: 9px 11px; text-align: left; }
-.post-content th { background: var(--pink-l); color: var(--pink-d); }
+.post-content th { background: var(--bg-light); color: var(--gold); }
 .code-copy-btn {
     position: absolute; top: 8px; right: 8px; cursor: pointer;
-    font-family: var(--font-round); font-size: 0.72rem; color: var(--pink-d);
-    background: rgba(255, 255, 255, 0.85); border: 1px solid var(--border); border-radius: 8px; padding: 3px 10px;
+    font-family: var(--font-mono); font-size: 0.7rem;
+    background: rgba(232, 224, 213, 0.1); color: var(--text);
+    border: 1px solid var(--border); padding: 3px 10px;
 }
-.code-copy-btn.copied { color: var(--matcha); border-color: var(--matcha); }
+.code-copy-btn.copied { color: #9fd8a0; border-color: #9fd8a0; }
 html[data-drop-cap="true"] .post-content > p:first-of-type::first-letter {
-    font-size: 54px; float: left; line-height: 0.85; margin: 6px 10px 0 0;
-    color: var(--pink-d); font-family: var(--font-round); font-weight: 700;
+    font-size: 58px; float: left; line-height: 0.85; margin: 6px 10px 0 0;
+    color: var(--gold); font-family: var(--font-display);
 }
 
-.post-navigation { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 34px 0 10px; }
+.post-navigation { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 36px 0 10px; }
 .post-nav {
-    background: var(--paper); border: 2px solid var(--pink); border-radius: 14px;
-    padding: 17px 20px; display: flex; flex-direction: column; gap: 7px; color: var(--ink);
+    border: 1px solid var(--border); background: var(--bg-light); padding: 17px 20px;
+    display: flex; flex-direction: column; gap: 7px; color: var(--text);
 }
-.post-nav:hover { border-color: var(--matcha); color: var(--ink); }
+.post-nav:hover { border-color: var(--gold); color: var(--text); }
 .post-nav.next { text-align: right; }
-.nav-label { font-size: 0.76rem; color: var(--text-2); }
-.nav-title { font-size: 1.02rem; font-weight: 700; }
-.post-nav:hover .nav-title { color: var(--pink-d); }
+.nav-label { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-2); letter-spacing: 0.12em; }
+.nav-title { font-family: var(--font-display); font-style: italic; font-size: 1.05rem; }
+.post-nav:hover .nav-title { color: var(--gold); }
 
 /* ===== 归档/标签/友链 ===== */
-.page-title { text-align: center; font-size: 1.7rem; margin-bottom: 26px; }
-.archive-year { margin-bottom: 26px; padding: 22px 26px; }
-.archive-year-title { font-family: var(--font-hand); font-size: 1.3rem; color: var(--matcha); margin-bottom: 10px; }
+.page-title { font-family: var(--font-display); font-style: italic; font-size: 1.9rem; margin-bottom: 8px; }
+.page-rule { height: 1px; background: linear-gradient(90deg, var(--gold), transparent); margin-bottom: 26px; }
+.archive-year { margin-bottom: 26px; }
+.archive-year-title { font-family: var(--font-mono); font-size: 0.9rem; color: var(--gold); letter-spacing: 0.14em; border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-bottom: 10px; }
 .archive-list { list-style: none; }
-.archive-item { display: flex; align-items: baseline; gap: 14px; padding: 9px 0; border-bottom: 1px dashed var(--border); }
-.archive-date { font-family: var(--font-hand); font-size: 1rem; color: var(--pink-d); min-width: 96px; }
-.archive-title { color: var(--ink); font-size: 1.02rem; }
-.archive-title:hover { color: var(--pink-d); }
-.tags-cloud { display: flex; flex-wrap: wrap; justify-content: center; gap: 13px; }
+.archive-item { display: flex; align-items: baseline; gap: 14px; padding: 9px 0; border-bottom: 1px dotted var(--border); }
+.archive-date { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-2); min-width: 92px; }
+.archive-title { color: var(--text); font-size: 1.05rem; }
+.archive-title:hover { color: var(--gold); }
+.tags-cloud { display: flex; flex-wrap: wrap; gap: 12px; }
 .tag-card {
-    background: var(--paper); border: 2px solid var(--pink); border-radius: 999px;
-    padding: 10px 22px; display: inline-flex; gap: 8px; align-items: center; color: var(--ink);
-    box-shadow: var(--shadow); transform: rotate(-1deg);
+    border: 1px solid var(--border); color: var(--text-2); padding: 10px 20px;
+    display: inline-flex; gap: 8px; align-items: center;
 }
-.tag-card:nth-child(3n) { border-color: var(--matcha); transform: rotate(1deg); }
-.tag-card:nth-child(2n) { border-color: var(--yellow); transform: rotate(-0.5deg); }
-.tag-card:hover { color: var(--pink-d); }
-.tag-count { font-size: 0.8rem; color: var(--text-2); }
+.tag-card:hover { border-color: var(--gold); color: var(--gold); }
+.tag-count { font-family: var(--font-mono); font-size: 0.78rem; color: var(--gold-dark); }
 .friend-links-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
 .friend-link-card {
-    padding: 20px; display: flex; gap: 14px; align-items: center; color: var(--ink);
-    box-shadow: var(--shadow);
+    border: 1px solid var(--border); background: var(--bg-light); padding: 20px;
+    display: flex; gap: 14px; align-items: center; color: var(--text);
 }
-.friend-link-card:hover { border-color: var(--matcha); color: var(--ink); }
-.friend-link-avatar { width: 56px; height: 56px; object-fit: cover; border-radius: 50%; border: 3px solid var(--pink-l); flex-shrink: 0; }
-.friend-link-name { font-weight: 700; font-size: 1.05rem; }
-.friend-link-desc { font-size: 0.85rem; color: var(--text-2); margin-top: 4px; }
+.friend-link-card:hover { border-color: var(--gold); color: var(--text); }
+.friend-link-avatar { width: 54px; height: 54px; object-fit: cover; border-radius: 50%; border: 1px solid var(--border); flex-shrink: 0; }
+.friend-link-name { font-family: var(--font-display); font-style: italic; font-size: 1.1rem; }
+.friend-link-desc { font-size: 0.86rem; color: var(--text-2); margin-top: 4px; }
 
 /* ===== 错误页 ===== */
-.error-page { min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 24px; }
-.error-code { font-size: 5rem; font-weight: 700; color: var(--pink-d); }
-.error-message { font-size: 1.2rem; margin-top: 10px; }
+.error-page { text-align: center; padding: 120px 20px 80px; }
+.error-code { font-family: var(--font-display); font-style: italic; font-size: 5.5rem; color: var(--gold); }
+.error-message { color: var(--text-2); margin-top: 10px; letter-spacing: 0.14em; font-family: var(--font-mono); }
 .error-desc { color: var(--text-2); margin-top: 8px; }
-.error-back-home {
-    display: inline-block; margin-top: 28px; background: var(--pink-d); color: #fff;
-    border-radius: 999px; padding: 12px 30px;
-}
-.error-back-home:hover { background: var(--matcha); color: #fff; }
+.error-back-home { display: inline-block; margin-top: 30px; border: 1px solid var(--gold); color: var(--gold); padding: 12px 30px; }
+.error-back-home:hover { background: var(--gold); color: var(--bg); }
 
 /* ===== 页脚 ===== */
-.note-footer {
-    text-align: center; padding: 24px; border-top: 1px solid var(--border);
-    color: var(--text-2); font-size: 0.84rem; display: flex; flex-direction: column; gap: 6px;
+.gallery-footer { background: var(--bg-light); border-top: 1px solid var(--border); margin-top: 30px; }
+.gallery-footer .container { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 30px; padding-top: 34px; padding-bottom: 34px; }
+.footer-title { font-family: var(--font-display); font-style: italic; font-size: 1rem; color: var(--gold); margin-bottom: 12px; }
+.footer-desc { color: var(--text-2); font-size: 0.9rem; }
+.footer-link { display: block; padding: 4px 0; color: var(--text-2); font-size: 0.9rem; }
+.footer-link:hover { color: var(--gold); }
+.social-link {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 34px; height: 34px; border: 1px solid var(--border); border-radius: 50%;
 }
+.social-link svg { display: block; }
 
 /* ===== 通用组件 ===== */
-.reading-progress-container { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 999; pointer-events: none; background: rgba(244, 143, 177, 0.15); }
-.reading-progress-bar { height: 100%; background: var(--pink-d); transform: scaleX(0); transform-origin: left; transition: transform 0.05s linear; }
+.reading-progress-container { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 999; pointer-events: none; background: rgba(232, 224, 213, 0.08); }
+.reading-progress-bar { height: 100%; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.05s linear; }
 .back-to-top {
-    position: fixed; bottom: 24px; right: 24px; width: 50px; height: 50px; border-radius: 50%;
-    background: var(--pink-d); color: #fff; border: 2px solid #fff; font-size: 20px; cursor: pointer;
-    opacity: 0; transform: translateY(10px); transition: opacity var(--transition), transform var(--transition);
-    z-index: 998; box-shadow: 0 6px 18px rgba(93, 78, 78, 0.4);
+    position: fixed; bottom: 32px; right: 32px; width: 46px; height: 46px;
+    background: var(--bg-light); color: var(--gold); border: 1px solid var(--border);
+    font-size: 18px; cursor: pointer; opacity: 0; transform: translateY(10px);
+    transition: opacity var(--transition), transform var(--transition); z-index: 998;
 }
 .back-to-top.visible { opacity: 1; transform: translateY(0); }
-.back-to-top:hover { background: var(--matcha); }
+.back-to-top:hover { background: var(--gold); color: var(--bg); }
 .image-zoom-overlay {
-    position: fixed; inset: 0; background: rgba(93, 78, 78, 0.94);
+    position: fixed; inset: 0; background: rgba(0, 0, 0, 0.96);
     display: flex; align-items: center; justify-content: center; z-index: 9999;
     opacity: 0; pointer-events: none; transition: opacity 0.25s;
 }
 .image-zoom-overlay.visible { opacity: 1; pointer-events: auto; }
-.image-zoom-img { max-width: 90vw; max-height: 90vh; border-radius: 14px; }
+.image-zoom-img { max-width: 90vw; max-height: 90vh; border: 1px solid var(--gold); }
 
 /* ===== 平板 (769-1024px) ===== */
 @media (min-width: 769px) and (max-width: 1024px) {
-    body { font-size: 15.5px; }
-    html[data-columns="3"] .notes { grid-template-columns: repeat(2, 1fr); }
+    .container { padding: 0 28px; }
+    body { font-size: 16px; }
+    .hero { grid-template-columns: 1fr; padding: 110px 28px 60px; }
+    .hero-art { height: 380px; }
+    .frame-1 { width: 280px; height: 340px; }
+    .frame-2 { width: 230px; height: 300px; }
+    .gallery { grid-template-columns: repeat(2, 1fr); padding: 0 28px 36px; }
+    html[data-columns="3"] .gallery { grid-template-columns: repeat(2, 1fr); }
+    .mega-panel { width: 720px; }
     .friend-links-list { grid-template-columns: 1fr; }
+    .gallery-footer .container { grid-template-columns: 1fr 1fr; }
 }
 
 /* ===== 桌面 (>1024px) ===== */
 @media (min-width: 1025px) {
-    body { font-size: 16px; }
+    .container { padding: 0 40px; }
+    body { font-size: 17px; }
 }
 
 /* ===== 手机 (≤768px) ===== */
 @media (max-width: 768px) {
-    body { font-size: 15px; }
-    .main { padding: 20px 16px 40px; }
-    .drawer { width: 82%; }
-    .notes, html[data-columns="2"] .notes, html[data-columns="3"] .notes { grid-template-columns: 1fr; }
-    .note-paper { padding: 28px 18px 24px; }
-    .hero-note { padding: 32px 20px 26px; }
-    .hero-title { font-size: 1.55rem; }
-    .post-title { font-size: 1.5rem; }
+    .container { padding: 0 20px; }
+    body { font-size: 15.5px; }
+    .top-bar { height: 60px; padding: 0 18px; }
+    .nav-toggle { display: flex; }
+    .nav-icon { display: none; }
+    .site-nav { position: relative; }
+    .nav-links-top {
+        display: none; flex-direction: column; position: absolute; top: calc(100% + 12px);
+        right: 0; width: 240px; background: var(--bg-light); border: 1px solid var(--border);
+        padding: 12px 16px; z-index: 180; gap: 2px;
+    }
+    .nav-links-top {
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100vh;
+        background: var(--bg-light); flex-direction: column; justify-content: flex-start;
+        align-items: center; padding: 80px 24px 30px; overflow-y: auto; z-index: 300; gap: 8px;
+    }
+    .nav-links-top.nav-links-open, .nav-links-top.is-open, .nav-links-top.open { display: flex; }
+    .nav-link { padding: 12px 4px; border-bottom: 1px dotted var(--border); border-radius: 0; font-size: 1.05rem; }
+    .nav-link:last-child { border-bottom: none; }
+    .mega-trigger { display: none; }
+    .nav-toggle { z-index: 310; }
+    .art-mask { opacity: 1; }
+    .art-read { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 100px 20px 50px; min-height: auto; }
+    .hero-art { height: 320px; }
+    .frame-1 { width: 230px; height: 280px; right: 0; }
+    .frame-2 { width: 190px; height: 240px; }
+    .gallery { grid-template-columns: 1fr; padding: 0 20px 30px; }
+    html[data-columns="3"] .gallery { grid-template-columns: 1fr; }
+    .big-quote { padding: 60px 20px; }
+    .quote-text { font-size: 1.5rem; }
+    .post-detail { padding: 90px 18px 30px; }
+    .post-title { font-size: 1.7rem; }
     .post-navigation { grid-template-columns: 1fr; }
     .post-nav.next { text-align: left; }
     .friend-links-list { grid-template-columns: 1fr; }
+    .gallery-footer .container { grid-template-columns: 1fr; }
     .back-to-top { bottom: 20px; right: 20px; }
 }
 
@@ -406,7 +391,7 @@ html[data-drop-cap="true"] .post-content > p:first-of-type::first-letter {
 @media (prefers-reduced-motion: reduce) {
     body, body.gridea-page-leaving { animation: none !important; }
     html { scroll-behavior: auto; }
-    .note-card, .hero-tag { transform: none !important; }
+    .art-cover img { transition: none; }
 }
 
 /* T1：FAB 悬浮于内容之上 */
@@ -416,360 +401,401 @@ html[data-drop-cap="true"] .post-content > p:first-of-type::first-letter {
 /* T1：sticky footer */
 body { min-height: 100vh; display: flex; flex-direction: column; }
 main, .main, .main-content, .container.page, .receipt-wrap, .page { flex: 1 0 auto; width: 100%; }
+
+/* T4：菜单按钮高对比 */
+@media (max-width: 768px) {
+  .nav-toggle { background: var(--gold); border-color: var(--gold); }
+  .nav-toggle-bar { background: #0d0d0d; }
+}
+
+/* C6 */
+.social-link { margin-top: 6px; }
 </style>
     
 </head>
 <body>
-    
-    <button class="hamburger nav-toggle" aria-label="菜单" aria-expanded="false">
-        <span class="hamburger-bar"></span>
-        <span class="hamburger-bar"></span>
-    </button>
-    <div class="drawer-backdrop" aria-hidden="true"></div>
-    <aside class="drawer nav-links" aria-label="手账抽屉">
+    <header class="top-bar">
         
-        <div class="tape tape-drawer" aria-hidden="true"></div>
-        
-        <div class="drawer-avatar">
-            
-            <img src="https://open.gridea.dev/media/gridea.png" alt="踏雪寻梅">
-            
-        </div>
-        <div class="drawer-name">踏雪寻梅</div>
-        <div class="drawer-sub">@ xiuhong</div>
-        <nav class="drawer-nav">
-            
-            
-            <a href="./" class="drawer-link">
-                <span class="drawer-icon">0</span>首页
-            </a>
-            
-            <a href="archives/" class="drawer-link">
-                <span class="drawer-icon">1</span>归档
-            </a>
-            
-            <a href="tags/" class="drawer-link">
-                <span class="drawer-icon">2</span>标签
-            </a>
-            
-            <a href="links.html" class="drawer-link">
-                <span class="drawer-icon">3</span>友链
-            </a>
-            
-            <a href="post/1784822488687-test/" class="drawer-link">
-                <span class="drawer-icon">4</span>页面
-            </a>
-            
-            <a href="post/biao-qian-ce-shi/" class="drawer-link" target="_blank">
-                <span class="drawer-icon">5</span>外部跳转页面
-            </a>
-            
-            <a href="post/1785149298221-高考倒计时背景-基于HTML-CSS-J/" class="drawer-link" target="_blank">
-                <span class="drawer-icon">6</span>对比测试
-            </a>
-            
-            <a href="post/1785149224458-原网站文章/" class="drawer-link">
-                <span class="drawer-icon">7</span>对照页面
-            </a>
-            
-            
-            
-        </nav>
-        <div class="drawer-tags">
-            <div class="drawer-tags-title">便签云</div>
-            
-            <div class="drawer-tag-cloud">
+        <nav class="site-nav">
+            <div class="nav-links nav-links-top">
                 
-                <a href="post/1784652274404-5/" class="drawer-tag">5</a>
                 
-                <a href="post/8-yue-fen-ce-shi/" class="drawer-tag">8月份的测试</a>
+                <a href="./" class="nav-link">首页</a>
                 
-                <a href="post/biao-qian-ce-shi/" class="drawer-tag">标签测试</a>
+                <a href="archives/" class="nav-link">归档</a>
                 
-                <a href="post/1785150854075-文章上传确认/" class="drawer-tag">文章上传确认</a>
+                <a href="tags/" class="nav-link">标签</a>
                 
-                <a href="post/1785149298221-高考倒计时背景-基于HTML-CSS-J/" class="drawer-tag">高考倒计时背景（基于HTML/CSS+JS实现）</a>
+                <a href="links.html" class="nav-link">友链</a>
+                
+                <a href="post/1784822488687-test/" class="nav-link">页面</a>
+                
+                <a href="post/biao-qian-ce-shi/" class="nav-link" target="_blank">外部跳转页面</a>
+                
+                <a href="post/1785149298221-高考倒计时背景-基于HTML-CSS-J/" class="nav-link" target="_blank">对比测试</a>
+                
+                <a href="post/1785149224458-原网站文章/" class="nav-link">对照页面</a>
+                
+                
+                
+                
+                <span class="mega-trigger">
+                    <span class="nav-link mega-btn" tabindex="0">展厅 ▾</span>
+                    <div class="mega-panel">
+                        <div class="mega-col">
+                            <h4 class="mega-title">展览</h4>
+                            <a href="archives/" class="mega-link">全部作品 · ARCHIVES</a>
+                            <a href="tags/" class="mega-link">标签 · TAGS</a>
+                            <a href="links.html" class="mega-link">友链 · LINKS</a>
+                            
+                        </div>
+                        <div class="mega-col">
+                            <h4 class="mega-title">艺术家</h4>
+                            <span class="mega-note">xiuhong</span>
+                            <span class="mega-note">18 件作品</span>
+                            <span class="mega-note">5 个主题</span>
+                        </div>
+                        <div class="mega-col">
+                            <h4 class="mega-title">最新策展</h4>
+                            
+                            
+                            <a href="post/1784652274404-5/" class="mega-link">5</a>
+                            
+                            <a href="post/8-yue-fen-ce-shi/" class="mega-link">8月份的测试</a>
+                            
+                            <a href="post/biao-qian-ce-shi/" class="mega-link">标签测试</a>
+                            
+                            <a href="post/1785150854075-文章上传确认/" class="mega-link">文章上传确认</a>
+                            
+                            <a href="post/1785149298221-高考倒计时背景-基于HTML-CSS-J/" class="mega-link">高考倒计时背景（基于HTML/CSS+JS实现）</a>
+                            
+                            
+                        </div>
+                        <div class="mega-col mega-feature">
+                            <h4 class="mega-title">本月精选</h4>
+                            <span class="mega-feature-text">✦ 踏雪寻梅</span>
+                            <span class="mega-note">你好世界</span>
+                        </div>
+                    </div>
+                </span>
                 
             </div>
-            
-        </div>
+            <span class="nav-icon" aria-hidden="true">🔍</span>
+            <button class="nav-toggle" aria-label="菜单" aria-expanded="false">
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+            </button>
+        </nav>
         
-        <div class="drawer-social">
-            
-            <a href="https://github.com/lime" class="social-link" target="_blank" rel="noopener noreferrer">
-
-<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.17c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.77 1.05.77 2.12v3.15c0 .31.21.67.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
-
-</a>
-            
-            <a href="https://space.bilibili.com/1234567" class="social-link" target="_blank" rel="noopener noreferrer">
-
-<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="6" width="19" height="13" rx="2.5"/><path d="M8.5 2.5L7 6M15.5 2.5L17 6"/><circle cx="8.8" cy="12" r="1.1"/><circle cx="15.2" cy="12" r="1.1"/></svg>
-
-</a>
-            
-        </div>
-        
-    </aside>
-    
-    <header class="note-header">
-        <a href="./" class="note-title">🌸 踏雪寻梅 🌸</a>
     </header>
-    <main class="main">
+    <main>
         
 
-<section class="hero-note">
-    
-    <div class="tape tape-hero" aria-hidden="true"></div>
-    
-    <span class="sticker" aria-hidden="true">🌸</span>
-    <h1 class="hero-title">踏雪寻梅</h1>
-    <p class="hero-desc">你好世界</p>
-    <div class="hero-tags">
-        <a href="archives/" class="hero-tag">📖 归档</a>
-        <a href="tags/" class="hero-tag">🏷️ 标签</a>
-        <a href="links.html" class="hero-tag">☕ 友链</a>
+<section class="hero">
+    <div class="hero-text">
+        <div class="hero-kicker">CURATED BY NIGHT</div>
+        <h1 class="hero-title"><em>踏雪寻梅</em></h1>
+        <p class="hero-desc">你好世界</p>
+        <a href="archives/" class="hero-cta">进入展厅 →</a>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+        <div class="frame frame-1"><span class="frame-inner"></span></div>
+        <div class="frame frame-2"><span class="frame-inner"></span></div>
     </div>
 </section>
 
-<div class="notes">
+
+<section class="big-quote">
+    <span class="quote-mark" aria-hidden="true">"</span>
+    <p class="quote-text">艺术是夜晚的另一种光。</p>
+    <p class="quote-attr">— 踏雪寻梅</p>
+</section>
+
+<section class="gallery">
     
     
-    <a href="post/1784652274404-5/" class="note-card">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="note-head">
-            <span class="note-date">2026-07-22 00:44:30</span>
-            <span class="note-emoji">🌸</span>
+    <a href="post/1784652274404-5/" class="art-card">
+        <div class="art-cover">
+            
+            <span class="art-gradient" aria-hidden="true"></span>
+            <img src="https://api.qqsuu.cn/api/dm-bing" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://picsum.photos/seed/gridea/800/600';this.onerror=null;this.parentNode.classList.add('cover-fallback')">
+            
+            <div class="art-mask">
+                <span class="art-title">5</span>
+                <span class="art-date">2026-07-22 00:44:30</span>
+                <span class="art-read">阅读全文 →</span>
+            </div>
         </div>
-        
-        <h2 class="note-title">5</h2>
-        <div class="note-abstract"><p>空状态引导：无文章/无标签时的友好提示</p>
-<p>长按快捷菜单：文章卡片长按弹出编辑/删除/置顶/复制链接</p>
-<p>首次启动引导：新用户引导页</p>
-</div>
-        <div class="note-tags">
-            
-            <span class="note-tag">你好世界</span>
-            
-            <span class="note-tag">1</span>
-            
-            <span class="note-tag">2</span>
-            
-            <span class="note-tag">3</span>
-            
-            <span class="note-tag">4</span>
-            
+        <div class="art-meta">
+            <span class="art-no">5</span>
+            <span class="art-tags">
+                
+                <em>你好世界</em>
+                
+                <em>1</em>
+                
+                <em>2</em>
+                
+                <em>3</em>
+                
+                <em>4</em>
+                
+            </span>
         </div>
-        <span class="read-pill">阅读 →</span>
     </a>
     
-    <a href="post/8-yue-fen-ce-shi/" class="note-card">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="note-head">
-            <span class="note-date">2026-08-02 18:41:56</span>
-            <span class="note-emoji">🌸</span>
-        </div>
-        
-        <h2 class="note-title">8月份的测试</h2>
-        <div class="note-abstract"><h1 id="1我们即将进行正式版的发布在此之前我们需要对软件全局进行打磨精细化处理去除臃肿无用的引用和和已经失效的功能代码同时关于界面更新技术栈信息可选择性地添加主题的技术栈开源信息处添加本项目的开源地址httpsgithubcomqingyu327grideaandroid然后再致谢下方添加开源许可内容组件展示本项目参考或使用的开源项目许可信息">1.我们即将进行正式版的发布，在此之前，我们需要对软件全局进行打磨，精细化处理，去除臃肿无用的引用和和已经失效的功能代码。同时关于界面更新技术栈信息，可选择性地添加主题的技术栈。开源信息处添加本项目的开源地址:https://github.com/QingYu327/GrideaAndroid，然后再致谢下方添加开源许可内容组件，展示本项目参考或使用的开源项目许可信息</h1>
-<p>2.这是一个问题:APP...</p>
-</div>
-        <div class="note-tags">
+    <a href="post/8-yue-fen-ce-shi/" class="art-card">
+        <div class="art-cover">
             
+            <span class="art-gradient" aria-hidden="true"></span>
+            <img src="https://api.qqsuu.cn/api/dm-bing" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://picsum.photos/seed/gridea/800/600';this.onerror=null;this.parentNode.classList.add('cover-fallback')">
+            
+            <div class="art-mask">
+                <span class="art-title">8月份的测试</span>
+                <span class="art-date">2026-08-02 18:41:56</span>
+                <span class="art-read">阅读全文 →</span>
+            </div>
         </div>
-        <span class="read-pill">阅读 →</span>
+        <div class="art-meta">
+            <span class="art-no">8月份的测试</span>
+            <span class="art-tags">
+                
+            </span>
+        </div>
     </a>
     
-    <a href="post/biao-qian-ce-shi/" class="note-card">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="note-head">
-            <span class="note-date">2026-07-30 11:08:29</span>
-            <span class="note-emoji">🌸</span>
-        </div>
-        
-        <div class="note-cover"><img src="post-images/1785208120541.webp" alt="标签测试" loading="lazy"></div>
-        
-        <h2 class="note-title">标签测试</h2>
-        <div class="note-abstract"><p>1.每次更换主题渲染，我希望点击生成时，能够清除前面渲染出来的文件和缓存，因为我在测试的时候经常需要更换主题查看效果，点击预览时，主题却没有变更，还是一直停留。同时网站文章列表也无法显示，其次，当文章超过10页存在分页切换时，我点击切换到存放在第二页的文章，会提示404。相关日志我已提交到根目录，请查收。
-2.关于-软件版本处，添加对当前软件发布版本的展示(debug or release版本)...</p>
-</div>
-        <div class="note-tags">
+    <a href="post/biao-qian-ce-shi/" class="art-card">
+        <div class="art-cover">
             
-            <span class="note-tag">1</span>
+            <img src="post-images/1785208120541.webp" alt="标签测试" loading="lazy">
             
+            <div class="art-mask">
+                <span class="art-title">标签测试</span>
+                <span class="art-date">2026-07-30 11:08:29</span>
+                <span class="art-read">阅读全文 →</span>
+            </div>
         </div>
-        <span class="read-pill">阅读 →</span>
+        <div class="art-meta">
+            <span class="art-no">标签测试</span>
+            <span class="art-tags">
+                
+                <em>1</em>
+                
+            </span>
+        </div>
     </a>
     
-    <a href="post/1785150854075-文章上传确认/" class="note-card">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="note-head">
-            <span class="note-date">2026-07-27 19:14:04</span>
-            <span class="note-emoji">🌸</span>
-        </div>
-        
-        <h2 class="note-title">文章上传确认</h2>
-        <div class="note-abstract"><p>文章 URL 默认格式</p>
-<p>Slug
-Short ID
-标签 URL 默认格式</p>
-<p>Slug
-Short ID</p>
-</div>
-        <div class="note-tags">
+    <a href="post/1785150854075-文章上传确认/" class="art-card">
+        <div class="art-cover">
             
+            <span class="art-gradient" aria-hidden="true"></span>
+            <img src="https://api.qqsuu.cn/api/dm-bing" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://picsum.photos/seed/gridea/800/600';this.onerror=null;this.parentNode.classList.add('cover-fallback')">
+            
+            <div class="art-mask">
+                <span class="art-title">文章上传确认</span>
+                <span class="art-date">2026-07-27 19:14:04</span>
+                <span class="art-read">阅读全文 →</span>
+            </div>
         </div>
-        <span class="read-pill">阅读 →</span>
+        <div class="art-meta">
+            <span class="art-no">文章上传确认</span>
+            <span class="art-tags">
+                
+            </span>
+        </div>
     </a>
     
-    <a href="post/1785149298221-高考倒计时背景-基于HTML-CSS-J/" class="note-card">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="note-head">
-            <span class="note-date">2026-07-27 18:48:14</span>
-            <span class="note-emoji">🌸</span>
-        </div>
-        
-        <h2 class="note-title">高考倒计时背景（基于HTML/CSS+JS实现）</h2>
-        <div class="note-abstract"><p>作为一名合格的高三牲，高考就是我们现今的最大目标，那高考倒计时也肯定是少不了的，但是个人认为手写的倒计时过于古老且不智能，不能实时更新，过于麻烦，同时也受提醒，所以就有现在这个想法。而且刚换了新平台，不折腾一下说不过去</p>
-<p>接下来就是就是寻找别人的轮子了，换个皮就是自己的【乐】，找了很久才发现一个比较好，且符合个人审美的，但是问题也比较多，就比如中间那个大框特别碍眼，而且添加背景后，只能显示局部...</p>
-</div>
-        <div class="note-tags">
+    <a href="post/1785149298221-高考倒计时背景-基于HTML-CSS-J/" class="art-card">
+        <div class="art-cover">
             
+            <span class="art-gradient" aria-hidden="true"></span>
+            <img src="https://api.qqsuu.cn/api/dm-bing" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://picsum.photos/seed/gridea/800/600';this.onerror=null;this.parentNode.classList.add('cover-fallback')">
+            
+            <div class="art-mask">
+                <span class="art-title">高考倒计时背景（基于HTML/CSS+JS实现）</span>
+                <span class="art-date">2026-07-27 18:48:14</span>
+                <span class="art-read">阅读全文 →</span>
+            </div>
         </div>
-        <span class="read-pill">阅读 →</span>
+        <div class="art-meta">
+            <span class="art-no">高考倒计时背景（基于HTML/CSS+JS实现）</span>
+            <span class="art-tags">
+                
+            </span>
+        </div>
     </a>
     
-    <a href="post/1785149224458-原网站文章/" class="note-card">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="note-head">
-            <span class="note-date">2026-07-27 18:46:56</span>
-            <span class="note-emoji">🌸</span>
-        </div>
-        
-        <h2 class="note-title">原网站文章</h2>
-        <div class="note-abstract"><h1 id="这一年">这一年</h1>
-<p>1.我成功复刻了bilibili小电视，有一说一比较简单，就是代码部分令人抓狂 ；</p>
-<p>2.成功入坑游戏手柄，不过并不怎么好用，不支持360模式，好多游戏玩不了;</p>
-<p>3.电视盒子刷机，并以此开始学习liunx系统 ；</p>
-<p>4.拥有了第一个移动硬盘，开始数据备份之路;</p>
-<p>5.淘了一台z3735f的主板，只要75，捡漏了；</p>
-<p>6.建成了我第一个个人网站，我取名为[...</p>
-</div>
-        <div class="note-tags">
+    <a href="post/1785149224458-原网站文章/" class="art-card">
+        <div class="art-cover">
             
+            <span class="art-gradient" aria-hidden="true"></span>
+            <img src="https://api.qqsuu.cn/api/dm-bing" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://picsum.photos/seed/gridea/800/600';this.onerror=null;this.parentNode.classList.add('cover-fallback')">
+            
+            <div class="art-mask">
+                <span class="art-title">原网站文章</span>
+                <span class="art-date">2026-07-27 18:46:56</span>
+                <span class="art-read">阅读全文 →</span>
+            </div>
         </div>
-        <span class="read-pill">阅读 →</span>
+        <div class="art-meta">
+            <span class="art-no">原网站文章</span>
+            <span class="art-tags">
+                
+            </span>
+        </div>
     </a>
     
-    <a href="post/1784952291407-新测试/" class="note-card">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="note-head">
-            <span class="note-date">2026-07-25 12:04:39</span>
-            <span class="note-emoji">🌸</span>
-        </div>
-        
-        <h2 class="note-title">新测试</h2>
-        <div class="note-abstract"><p>1.如果主题可以存放在内置目录的同时，用户可以自行删除清理，那就不用换到外置目录了，我的本意是想让用户更方便管理主题。
-2.整合内容，描述一下目前主题的开发方向和架构主题配置导出暂不考虑，其余可以执行阅读工作目录跟目录的项目记忆和wiki文档，了解app开发进程和项目结构，目前我们要着手于博客主题设计。我向别人询问了相关方法，得到：主题设计思路旨在构建一个高度解耦、动态响应的博客主题配置引擎，核心...</p>
-</div>
-        <div class="note-tags">
+    <a href="post/1784952291407-新测试/" class="art-card">
+        <div class="art-cover">
             
-            <span class="note-tag">1</span>
+            <span class="art-gradient" aria-hidden="true"></span>
+            <img src="https://api.qqsuu.cn/api/dm-bing" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://picsum.photos/seed/gridea/800/600';this.onerror=null;this.parentNode.classList.add('cover-fallback')">
             
+            <div class="art-mask">
+                <span class="art-title">新测试</span>
+                <span class="art-date">2026-07-25 12:04:39</span>
+                <span class="art-read">阅读全文 →</span>
+            </div>
         </div>
-        <span class="read-pill">阅读 →</span>
+        <div class="art-meta">
+            <span class="art-no">新测试</span>
+            <span class="art-tags">
+                
+                <em>1</em>
+                
+            </span>
+        </div>
     </a>
     
-    <a href="post/1784867937106-长文章/" class="note-card">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="note-head">
-            <span class="note-date">2026-07-24 12:38:39</span>
-            <span class="note-emoji">🌸</span>
-        </div>
-        
-        <h2 class="note-title">长文章</h2>
-        <div class="note-abstract"><p>1.账户页面的更新账户信息按钮，目前是点击后，在账户详情卡片左下角用红色字体展示刷新结果，目前已经是灵动岛通知的形式，请删除左下角红色字体通知。同时通知内容除了展示刷新结果，增加获取过程展示，请优化。
-2.目前文章编辑页面，有一个字数达标通知，我希望这个也能接入灵动岛通知栏，原本达标通知文字内容不变。
-3.文章首页上方的文章写作记录卡片，内容分别记录有全部文章，已发布，草稿，标签，将全部文章删去，...</p>
-</div>
-        <div class="note-tags">
+    <a href="post/1784867937106-长文章/" class="art-card">
+        <div class="art-cover">
             
+            <span class="art-gradient" aria-hidden="true"></span>
+            <img src="https://api.qqsuu.cn/api/dm-bing" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://picsum.photos/seed/gridea/800/600';this.onerror=null;this.parentNode.classList.add('cover-fallback')">
+            
+            <div class="art-mask">
+                <span class="art-title">长文章</span>
+                <span class="art-date">2026-07-24 12:38:39</span>
+                <span class="art-read">阅读全文 →</span>
+            </div>
         </div>
-        <span class="read-pill">阅读 →</span>
+        <div class="art-meta">
+            <span class="art-no">长文章</span>
+            <span class="art-tags">
+                
+            </span>
+        </div>
     </a>
     
-    <a href="post/1784822549138-12/" class="note-card">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="note-head">
-            <span class="note-date">2026-07-24 00:02:25</span>
-            <span class="note-emoji">🌸</span>
+    <a href="post/1784822549138-12/" class="art-card">
+        <div class="art-cover">
+            
+            <span class="art-gradient" aria-hidden="true"></span>
+            <img src="https://api.qqsuu.cn/api/dm-bing" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://picsum.photos/seed/gridea/800/600';this.onerror=null;this.parentNode.classList.add('cover-fallback')">
+            
+            <div class="art-mask">
+                <span class="art-title">12</span>
+                <span class="art-date">2026-07-24 00:02:25</span>
+                <span class="art-read">阅读全文 →</span>
+            </div>
         </div>
-        
-        <h2 class="note-title">12</h2>
-        <div class="note-abstract"><p>1.回收站界面一共有四个区，但只能点击切换栏进行切换，请添加左右手势滑动切换。
-2.主题-自定义主题的导入主题按钮切换成圆角卡片风格，不要只有文字
-3.能否能对APP全局页面的打开和加载都使用占位符加异步填充的方案进行动画优化，日志界面的加载优化，测试状况良好，我觉得可以全局应用。如果你觉得效果不够，可以考虑全局优化加硬件加速辅助。
-4.菜单和友链的fab按钮，高度和标签的fab不同，请优化。同时...</p>
-</div>
-        <div class="note-tags">
-            
-            <span class="note-tag">你好世界</span>
-            
-            <span class="note-tag">1</span>
-            
-            <span class="note-tag">2</span>
-            
-            <span class="note-tag">3</span>
-            
-            <span class="note-tag">4</span>
-            
+        <div class="art-meta">
+            <span class="art-no">12</span>
+            <span class="art-tags">
+                
+                <em>你好世界</em>
+                
+                <em>1</em>
+                
+                <em>2</em>
+                
+                <em>3</em>
+                
+                <em>4</em>
+                
+            </span>
         </div>
-        <span class="read-pill">阅读 →</span>
     </a>
     
-    <a href="post/1784822538683-11/" class="note-card">
-        <span class="pin" aria-hidden="true"></span>
-        <div class="note-head">
-            <span class="note-date">2026-07-24 00:02:14</span>
-            <span class="note-emoji">🌸</span>
+    <a href="post/1784822538683-11/" class="art-card">
+        <div class="art-cover">
+            
+            <span class="art-gradient" aria-hidden="true"></span>
+            <img src="https://api.qqsuu.cn/api/dm-bing" alt="" loading="lazy" onerror="this.onerror=null;this.src='https://picsum.photos/seed/gridea/800/600';this.onerror=null;this.parentNode.classList.add('cover-fallback')">
+            
+            <div class="art-mask">
+                <span class="art-title">11</span>
+                <span class="art-date">2026-07-24 00:02:14</span>
+                <span class="art-read">阅读全文 →</span>
+            </div>
         </div>
-        
-        <h2 class="note-title">11</h2>
-        <div class="note-abstract"><p>1.写作统计里面的写作日历显示全面，有点耗费资源，换回之前的简略显示。
-2.文章编辑页面退出时，目前是退出时，先让内容消失，再让空容器收缩。我想进一步删减动画，把先让内容消失，变成空容器这一步，直接将原页面进行收缩。然后将退出动画的总耗时从60毫秒降到50毫秒。
-3.将导入主题的圆角卡片按钮，移动至“主题”页面的右上角，原先因为按钮移动后，留下来的空白区域删去。
-4.进入全屏编辑是，工具栏跟任务栏...</p>
-</div>
-        <div class="note-tags">
-            
-            <span class="note-tag">你好世界</span>
-            
-            <span class="note-tag">1</span>
-            
-            <span class="note-tag">2</span>
-            
-            <span class="note-tag">3</span>
-            
-            <span class="note-tag">4</span>
-            
+        <div class="art-meta">
+            <span class="art-no">11</span>
+            <span class="art-tags">
+                
+                <em>你好世界</em>
+                
+                <em>1</em>
+                
+                <em>2</em>
+                
+                <em>3</em>
+                
+                <em>4</em>
+                
+            </span>
         </div>
-        <span class="read-pill">阅读 →</span>
     </a>
     
     
-</div>
+</section>
 
 <nav class="pagination">
     
     <span class="page-info">1 / 2</span>
-    <a href="page/2/" class="page-next">下一页 →</a>
+    <a href="page/2/" class="page-next">下一展厅 →</a>
 </nav>
 
 
     </main>
-    <footer class="note-footer">
-        <span>Powered by Gridea</span>
-        <span>✿ ✿ ✿</span>
+    <footer class="gallery-footer">
+        <div class="container">
+            <div class="footer-col">
+                <h4 class="footer-title">踏雪寻梅</h4>
+                <p class="footer-desc">你好世界</p>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-title">画廊</h4>
+                <a href="archives/" class="footer-link">全部作品</a>
+                <a href="tags/" class="footer-link">标签</a>
+                <a href="links.html" class="footer-link">友链</a>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-title">艺术家</h4>
+                <span class="footer-link">xiuhong</span>
+                <span class="footer-link">18 件作品</span>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-title">关于</h4>
+                
+                
+                <a href="https://github.com/lime" class="social-link footer-link" target="_blank" rel="noopener noreferrer">
+
+<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.17c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.77 1.05.77 2.12v3.15c0 .31.21.67.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+
+</a>
+                
+                <a href="https://space.bilibili.com/1234567" class="social-link footer-link" target="_blank" rel="noopener noreferrer">
+
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="6" width="19" height="13" rx="2.5"/><path d="M8.5 2.5L7 6M15.5 2.5L17 6"/><circle cx="8.8" cy="12" r="1.1"/><circle cx="15.2" cy="12" r="1.1"/></svg>
+
+</a>
+                
+                
+                <span class="footer-link">Powered by Gridea</span>
+            </div>
+        </div>
     </footer>
     
     
@@ -778,15 +804,15 @@ Short ID</p>
     <div id="image-zoom-overlay" class="image-zoom-overlay"><img id="image-zoom-img" class="image-zoom-img" alt=""></div>
     <script>
     window.GRIDEA_CONFIG = window.GRIDEA_CONFIG || {};
-    window.GRIDEA_CONFIG.accent = "#f48fb1";
-    window.GRIDEA_CONFIG.style = "sakuranote";
+    window.GRIDEA_CONFIG.accent = "#c9a962";
+    window.GRIDEA_CONFIG.style = "darkgallery";
     window.GRIDEA_CONFIG.socialLinks = ["https://github.com/lime","https://space.bilibili.com/1234567"];
     </script>
     
     <script>
     (function(){
         var toggle = document.querySelector('.nav-toggle');
-        var links = document.querySelector('.nav-links');
+        var links = document.querySelector('.nav-links-top');
         if (!toggle || !links) return;
         toggle.addEventListener('click', function(){
             var expanded = toggle.getAttribute('aria-expanded') === 'true';
@@ -796,7 +822,6 @@ Short ID</p>
             links.classList.toggle('open');
             toggle.classList.toggle('is-open');
             toggle.classList.toggle('active');
-            document.body.classList.toggle('drawer-open');
         });
     })();
     </script>
