@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>踏雪寻梅</title><subtitle>你好世界</subtitle><id>https://16916949.github.io/</id><link href="https://16916949.github.io/"/><updated>2026-08-03T02:56:08Z</updated><entry><title>5</title><id>https://16916949.github.io/post/1784652274404-5/</id><link href="https://16916949.github.io/post/1784652274404-5/"/><updated>2026-07-22 00:44:30T00:00:00Z</updated><summary>空状态引导：无文章/无标签时的友好提示
+<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>踏雪寻梅</title><subtitle>你好世界</subtitle><id>https://16916949.github.io/</id><link href="https://16916949.github.io/"/><updated>2026-08-05T18:10:01Z</updated><entry><title>5</title><id>https://16916949.github.io/post/1784652274404-5/</id><link href="https://16916949.github.io/post/1784652274404-5/"/><updated>2026-07-22 00:44:30T00:00:00Z</updated><summary>空状态引导：无文章/无标签时的友好提示
 长按快捷菜单：文章卡片长按弹出编辑/删除/置顶/复制链接
 首次启动引导：新用户引导页</summary><content type="html">&lt;p&gt;空状态引导：无文章/无标签时的友好提示&lt;/p&gt;
 &lt;p&gt;长按快捷菜单：文章卡片长按弹出编辑/删除/置顶/复制链接&lt;/p&gt;
 &lt;p&gt;首次启动引导：新用户引导页&lt;/p&gt;
-</content></entry><entry><title>8月份的测试</title><id>https://16916949.github.io/post/8-yue-fen-ce-shi/</id><link href="https://16916949.github.io/post/8-yue-fen-ce-shi/"/><updated>2026-08-02 18:41:56T00:00:00Z</updated><summary>1.我们即将进行正式版的发布，在此之前，我们需要对软件全局进行打磨，精细化处理，去除臃肿无用的引用和和已经失效的功能代码。同时关于界面更新技术栈信息，可选择性地添加主题的技术栈。开源信息处添加本项目的开源地址:https://github....</summary><content type="html">&lt;p&gt;1.我们即将进行正式版的发布，在此之前，我们需要对软件全局进行打磨，精细化处理，去除臃肿无用的引用和和已经失效的功能代码。同时关于界面更新技术栈信息，可选择性地添加主题的技术栈。开源信息处添加本项目的开源地址:https://github.com/QingYu327/GrideaAndroid，然后再致谢下方添加开源许可内容组件，展示本项目参考或使用的开源项目许可信息
-2.这是一个问题:APP里面的文章编辑功能是可以显示封面图的，但是我发现已有的主题都不支持，后续外部开发者开发时可以支持的上吗？这个有接口吗？
+</content></entry><entry><title>8月份的测试</title><id>https://16916949.github.io/post/8-yue-fen-ce-shi/</id><link href="https://16916949.github.io/post/8-yue-fen-ce-shi/"/><updated>2026-08-02 18:41:56T00:00:00Z</updated><summary>1.我们即将进行正式版的发布，在此之前，我们需要对软件全局进行打磨，精细化处理，去除臃肿无用的引用和和已经失效的功能代码。同时关于界面更新技术栈信息，可选择性地添加主题的技术栈。开源信息处添加本项目的开源地址:https://github....</summary><content type="html">&lt;h1 id=&quot;1我们即将进行正式版的发布在此之前我们需要对软件全局进行打磨精细化处理去除臃肿无用的引用和和已经失效的功能代码同时关于界面更新技术栈信息可选择性地添加主题的技术栈开源信息处添加本项目的开源地址httpsgithubcomqingyu327grideaandroid然后再致谢下方添加开源许可内容组件展示本项目参考或使用的开源项目许可信息&quot;&gt;1.我们即将进行正式版的发布，在此之前，我们需要对软件全局进行打磨，精细化处理，去除臃肿无用的引用和和已经失效的功能代码。同时关于界面更新技术栈信息，可选择性地添加主题的技术栈。开源信息处添加本项目的开源地址:https://github.com/QingYu327/GrideaAndroid，然后再致谢下方添加开源许可内容组件，展示本项目参考或使用的开源项目许可信息&lt;/h1&gt;
+&lt;p&gt;2.这是一个问题:APP里面的文章编辑功能是可以显示封面图的，但是我发现已有的主题都不支持，后续外部开发者开发时可以支持的上吗？这个有接口吗？
 2.1  自定义主题界面的预览图没有生效，请解决。
 同时渐变流体主题删去，不再做进一步适配。马卡龙主题虽然使用溢出菜单进行除了固定四个菜单栏以外的新增菜单的收纳，不过我实际使用时只能显示一个菜单，其他的都被挡住了应该是，我希望点击溢出菜单按钮时能够自动展开，如果过多的时候可以进行滑动，这样子体验可能比较好。
 2.2  修改完主题后，将剩余主题直接内置进软件，作为初始主题使用，保留用户进行删除的权限，可以进行删除。
@@ -49,7 +49,7 @@ Short ID&lt;/p&gt;
 &lt;p&gt;经过艰苦的修改后，将这个大框去掉，然后图片可以正常显示，还加了一个看板娘添加活力，但是有时加载不出来，效果如图且代码如下
 &lt;a href=&quot;https://www.cnblogs.com/cairbin/p/13535781.html&quot;&gt;这是作者原帖&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;file://C:/Users/Lime/Documents/Gridea/post-images/1693309526709.png&quot; alt=&quot;&quot; / loading=&quot;lazy&quot; decoding=&quot;async&quot;&gt;&lt;/p&gt;
-&lt;h1&gt;HTML&lt;/h1&gt;
+&lt;h1 id=&quot;html&quot;&gt;HTML&lt;/h1&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
 &amp;lt;html&amp;gt;
     &amp;lt;head&amp;gt;
@@ -148,7 +148,7 @@ Short ID&lt;/p&gt;
 
 &amp;lt;!--由江鸟更改部分代码，修正了背景图不能全屏 --&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h1&gt;CSS&lt;/h1&gt;
+&lt;h1 id=&quot;css&quot;&gt;CSS&lt;/h1&gt;
 &lt;pre&gt;&lt;code&gt;@import url(&amp;quot;https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&amp;quot;);
 *
 {
@@ -242,13 +242,13 @@ body
 &lt;p&gt;这次就不一一放出代码了，我将其打包放在网盘，需要的可以直接下载&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.123pan.com/s/7GHSVv-t0xod.html&quot;&gt;源码下载&lt;/a&gt;
 &lt;a href=&quot;https://www.123pan.com/s/7GHSVv-i0xod.html&quot;&gt;软件下载&lt;/a&gt;&lt;/p&gt;
-&lt;h1&gt;下载帮助&lt;/h1&gt;
+&lt;h1 id=&quot;下载帮助&quot;&gt;下载帮助&lt;/h1&gt;
 &lt;p&gt;&lt;img src=&quot;file://C:/Users/Lime/Documents/Gridea/post-images/1724213800104.png&quot; alt=&quot;&quot; / loading=&quot;lazy&quot; decoding=&quot;async&quot;&gt;&lt;/p&gt;
 </content></entry><entry><title>原网站文章</title><id>https://16916949.github.io/post/1785149224458-原网站文章/</id><link href="https://16916949.github.io/post/1785149224458-原网站文章/"/><updated>2026-07-27 18:46:56T00:00:00Z</updated><summary>这一年
 1.我成功复刻了bilibili小电视，有一说一比较简单，就是代码部分令人抓狂 ；
 2.成功入坑游戏手柄，不过并不怎么好用，不支持360模式，好多游戏玩不了;
 3.电视盒子刷机，并以此开始学习liunx系统 ；
-4.拥有了第一个移动...</summary><content type="html">&lt;h1&gt;这一年&lt;/h1&gt;
+4.拥有了第一个移动...</summary><content type="html">&lt;h1 id=&quot;这一年&quot;&gt;这一年&lt;/h1&gt;
 &lt;p&gt;1.我成功复刻了bilibili小电视，有一说一比较简单，就是代码部分令人抓狂 ；&lt;/p&gt;
 &lt;p&gt;2.成功入坑游戏手柄，不过并不怎么好用，不支持360模式，好多游戏玩不了;&lt;/p&gt;
 &lt;p&gt;3.电视盒子刷机，并以此开始学习liunx系统 ；&lt;/p&gt;
@@ -274,7 +274,7 @@ body
 &lt;/br&gt;
 &lt;p&gt;8.摔坏了两台机，两个都是一模一样的，服了.......&lt;/p&gt;
 &lt;p&gt;9.遇到了一群有趣的灵魂 ......&lt;/p&gt;
-&lt;h1&gt;十年饮冰，难凉热血&lt;/h1&gt;
+&lt;h1 id=&quot;十年饮冰难凉热血&quot;&gt;十年饮冰，难凉热血&lt;/h1&gt;
 &lt;p&gt;&lt;strong&gt;新的一年，保持热爱，奔赴星海，所念皆星河 。&lt;/strong&gt;&lt;/p&gt;
 </content></entry><entry><title>新测试</title><id>https://16916949.github.io/post/1784952291407-新测试/</id><link href="https://16916949.github.io/post/1784952291407-新测试/"/><updated>2026-07-25 12:04:39T00:00:00Z</updated><summary>1.如果主题可以存放在内置目录的同时，用户可以自行删除清理，那就不用换到外置目录了，我的本意是想让用户更方便管理主题。
 2.整合内容，描述一下目前主题的开发方向和架构主题配置导出暂不考虑，其余可以执行阅读工作目录跟目录的项目记忆和wiki文...</summary><content type="html">&lt;p&gt;1.如果主题可以存放在内置目录的同时，用户可以自行删除清理，那就不用换到外置目录了，我的本意是想让用户更方便管理主题。
