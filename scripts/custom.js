@@ -1,15 +1,39 @@
 /* ============================================================
-   08-Terminal custom.js
-   非文章页的阅读进度条、回到顶部、图片放大
-   文章页由 post.peb 内联脚本处理（通过 data-gridea-inline 标记跳过）
+   11-SakuraNote custom.js
+   通用五件套 + 抽屉菜单辅助
    ============================================================ */
 (function() {
     'use strict';
 
+    // ===== 抽屉菜单辅助 =====
+    var toggle = document.querySelector('.nav-toggle');
+    var drawer = document.querySelector('.drawer');
+    var backdrop = document.querySelector('.drawer-backdrop');
+    function closeDrawer() {
+        if (toggle) toggle.setAttribute('aria-expanded', 'false');
+        if (drawer) {
+            drawer.classList.remove('nav-links-open');
+            drawer.classList.remove('is-open');
+            drawer.classList.remove('open');
+        }
+        if (toggle) { toggle.classList.remove('is-open'); toggle.classList.remove('active'); }
+        document.body.classList.remove('drawer-open');
+    }
+    if (backdrop) backdrop.addEventListener('click', closeDrawer);
+    if (drawer) {
+        drawer.querySelectorAll('a').forEach(function(a) {
+            a.addEventListener('click', function() {
+                window.setTimeout(closeDrawer, 260);
+            });
+        });
+    }
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeDrawer();
+    });
+
     // ===== 阅读进度条 + 回到顶部（非文章页） =====
     var backTopBtn = document.getElementById('back-to-top');
     var progressBar = document.getElementById('reading-progress');
-
     var inlineHandled = (backTopBtn && backTopBtn.dataset.grideaInline === '1') ||
                         (progressBar && progressBar.dataset.grideaInline === '1');
 
@@ -49,10 +73,7 @@
         }
 
         window.addEventListener('scroll', function() {
-            if (!ticking) {
-                window.requestAnimationFrame(onScrollUpdate);
-                ticking = true;
-            }
+            if (!ticking) { window.requestAnimationFrame(onScrollUpdate); ticking = true; }
         }, { passive: true });
 
         var resizeTimer = null;
@@ -76,13 +97,11 @@
     // ===== 图片放大（非文章页） =====
     var overlay = document.getElementById('image-zoom-overlay');
     var zoomImg = document.getElementById('image-zoom-img');
-    if (overlay && overlay.dataset.grideaInline !== '1' && overlay && zoomImg) {
-        document.querySelectorAll('.post-content img, .post-feature img').forEach(function(img) {
+    if (overlay && overlay.dataset.grideaInline !== '1' && zoomImg) {
+        document.querySelectorAll('.post-content img, .post-feature img, .note-cover img').forEach(function(img) {
             img.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                zoomImg.src = img.src;
-                zoomImg.alt = img.alt || '';
+                e.preventDefault(); e.stopPropagation();
+                zoomImg.src = img.src; zoomImg.alt = img.alt || '';
                 overlay.classList.add('visible');
                 overlay.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden';
@@ -91,13 +110,10 @@
         function closeZoom() {
             overlay.classList.remove('visible');
             overlay.setAttribute('aria-hidden', 'true');
-            zoomImg.src = '';
-            document.body.style.overflow = '';
+            zoomImg.src = ''; document.body.style.overflow = '';
         }
         overlay.addEventListener('click', closeZoom);
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeZoom();
-        });
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeZoom(); });
     }
 
     // ===== 外部链接新窗口打开 =====
@@ -128,9 +144,7 @@
             } catch (err) { return; }
             e.preventDefault();
             document.body.classList.add('gridea-page-leaving');
-            window.setTimeout(function() {
-                window.location.href = link.href;
-            }, 200);
+            window.setTimeout(function() { window.location.href = link.href; }, 200);
         }, true);
     }
 })();
