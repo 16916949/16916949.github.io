@@ -1,35 +1,22 @@
 /* ============================================================
-   11-SakuraNote custom.js
-   通用五件套 + 抽屉菜单辅助
+   10-DarkGallery custom.js
+   通用五件套（巨型菜单由 CSS hover 完成）
    ============================================================ */
 (function() {
     'use strict';
 
-    // ===== 抽屉菜单辅助 =====
-    var toggle = document.querySelector('.nav-toggle');
-    var drawer = document.querySelector('.drawer');
-    var backdrop = document.querySelector('.drawer-backdrop');
-    function closeDrawer() {
-        if (toggle) toggle.setAttribute('aria-expanded', 'false');
-        if (drawer) {
-            drawer.classList.remove('nav-links-open');
-            drawer.classList.remove('is-open');
-            drawer.classList.remove('open');
-        }
-        if (toggle) { toggle.classList.remove('is-open'); toggle.classList.remove('active'); }
-        document.body.classList.remove('drawer-open');
-    }
-    if (backdrop) backdrop.addEventListener('click', closeDrawer);
-    if (drawer) {
-        drawer.querySelectorAll('a').forEach(function(a) {
-            a.addEventListener('click', function() {
-                window.setTimeout(closeDrawer, 260);
-            });
+    // ===== 巨型菜单：触屏/键盘点击展开（仿 04，外部点击关闭） =====
+    var megaBtn = document.querySelector('.mega-btn');
+    var megaPanel = document.querySelector('.mega-panel');
+    if (megaBtn && megaPanel) {
+        megaBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            megaPanel.classList.toggle('open');
+        });
+        document.addEventListener('click', function(e) {
+            if (!megaPanel.contains(e.target)) megaPanel.classList.remove('open');
         });
     }
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') closeDrawer();
-    });
 
     // ===== 阅读进度条 + 回到顶部（非文章页） =====
     var backTopBtn = document.getElementById('back-to-top');
@@ -98,7 +85,7 @@
     var overlay = document.getElementById('image-zoom-overlay');
     var zoomImg = document.getElementById('image-zoom-img');
     if (overlay && overlay.dataset.grideaInline !== '1' && zoomImg) {
-        document.querySelectorAll('.post-content img, .post-feature img, .note-cover img').forEach(function(img) {
+        document.querySelectorAll('.post-content img, .post-feature img, .art-cover img').forEach(function(img) {
             img.addEventListener('click', function(e) {
                 e.preventDefault(); e.stopPropagation();
                 zoomImg.src = img.src; zoomImg.alt = img.alt || '';
