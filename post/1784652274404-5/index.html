@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-width="760" data-scanline="true" data-card="terminal" data-width="760" data-scanline="true">
+<html lang="zh-CN" data-width="760" data-columns="3" data-drop-cap="false" data-style="sakuranote" data-drawer="true" data-tape="true" data-grid="true" data-rotate="true" data-pins="true">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,97 +10,548 @@
     <meta name="author" content="xiuhong">
     <link rel="icon" href="https://open.gridea.dev/media/gridea.png">
     <base href="../../">
+    <style>:root{--accent:#f48fb1};</style>
     
-    
-    <link rel="stylesheet" href="styles/main.css">
-    
+    <style>/* ============================================================
+   11-SakuraNote 樱花手账
+   少女手账便签风：方格纸 + 胶带图钉 + 错位便签 + 左抽屉
+   ============================================================ */
+{# C7：CSS 模板化 #}
+:root {
+    --bg: #fff9f5;
+    --paper: #fffdfa;
+    --pink: #ffb7c5;
+    --pink-d: ;
+    --pink-l: #fce4ec;
+    --matcha: #7eb67e;
+    --matcha-l: #e8f5e9;
+    --yellow: #fff59d;
+    --blue: #90caf9;
+    --purple: #ce93d8;
+    --ink: #5d4e4e;
+    --text-2: #9e8e8e;
+    --border: #f3dbe3;
+    --content-width: px;
+    --radius: 14px;
+    --shadow: 0 6px 18px rgba(93, 78, 78, 0.10);
+    --shadow-soft: 0 10px 26px rgba(244, 143, 177, 0.22);
+    --transition: 0.28s ease;
+    --font-round: "M PLUS Rounded 1c", "ZCOOL KuaiLe", "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    --font-hand: Caveat, "ZCOOL KuaiLe", "Segoe Script", cursive;
+}
 
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; touch-action: pan-y; }
+p, h1, h2, h3, h4, h5, h6, li, blockquote, code, pre, img, a { -webkit-user-select: text; user-select: text; }
+pre, code { touch-action: pan-x pan-y; }
 
+html { scroll-behavior: smooth; }
+body {
+    font-family: var(--font-round);
+    background-color: var(--bg);
+    color: var(--ink);
+    line-height: 1.8;
+    font-size: 16px;
+    /* FAB 悬浮方案：移除全局底部占位 */
+    animation: grideaPageEnter 0.3s ease both;
+}
+html[data-grid="true"] body {
+    background-image:
+        linear-gradient(rgba(244, 143, 177, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(244, 143, 177, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+body.drawer-open { overflow: hidden; }
+body.gridea-page-leaving { animation: grideaPageLeave 0.2s ease forwards; }
+@keyframes grideaPageEnter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes grideaPageLeave { from { opacity: 1; } to { opacity: 0; } }
+
+a { color: var(--pink-d); text-decoration: none; transition: color var(--transition); }
+a:hover { color: var(--matcha); }
+img { max-width: 100%; height: auto; }
+.container-narrow { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+/* ===== 粉色圆钮 ===== */
+.hamburger {
+    position: fixed; top: 16px; left: 16px; z-index: 260;
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--pink-d); border: 2px solid #fff; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    box-shadow: 0 5px 14px rgba(244, 143, 177, 0.45);
+    transition: transform 0.25s;
+}
+.hamburger:hover { transform: scale(1.06); }
+.hamburger { z-index: 999 !important; }
+.hamburger-bar { width: 20px; height: 2.5px; background: #fff; border-radius: 2px; transition: all 0.25s; }
+.hamburger[aria-expanded="true"] .hamburger-bar:nth-child(1) { transform: translateY(4.5px) rotate(45deg); }
+.hamburger[aria-expanded="true"] .hamburger-bar:nth-child(2) { transform: translateY(-4.5px) rotate(-45deg); }
+html[data-drawer="false"] .hamburger { display: none; }
+
+/* ===== 左抽屉 ===== */
+.drawer-backdrop {
+    position: fixed; inset: 0; background: rgba(93, 78, 78, 0.35);
+    opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 240;
+}
+body.drawer-open .drawer-backdrop { opacity: 1; pointer-events: auto; }
+.drawer {
+    position: fixed; top: 0; left: 0; bottom: 0; z-index: 250;
+    width: 300px; background: var(--paper); color: var(--ink);
+    transform: translateX(-105%); transition: transform 0.35s ease;
+    padding: 34px 24px 24px; overflow-y: auto;
+    box-shadow: 12px 0 34px rgba(93, 78, 78, 0.18);
+    border-radius: 0 18px 18px 0;
+}
+.drawer.nav-links-open, .drawer.is-open, .drawer.open { transform: translateX(0); }
+.tape {
+    height: 34px; width: 120px; position: absolute;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.1)), var(--pink-d);
+    box-shadow: 0 3px 8px rgba(93, 78, 78, 0.18);
+    clip-path: polygon(2% 0, 98% 6%, 100% 100%, 0 94%);
+    opacity: 0.92;
+}
+html[data-tape="false"] .tape { display: none; }
+.tape-drawer { top: 16px; left: 50%; transform: translateX(-50%) rotate(-3deg); }
+.drawer-avatar {
+    width: 82px; height: 82px; border-radius: 50%; margin: 18px auto 10px;
+    overflow: hidden; border: 4px solid var(--pink-l);
+    box-shadow: 0 0 0 3px var(--pink-d), var(--shadow);
+    display: flex; align-items: center; justify-content: center; background: var(--pink-l);
+}
+.drawer-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.avatar-fallback { font-size: 2rem; }
+.drawer-name { text-align: center; font-family: var(--font-hand); font-size: 1.5rem; color: var(--ink); }
+.drawer-sub { text-align: center; font-size: 0.76rem; color: var(--text-2); margin-bottom: 14px; }
+.drawer-nav { display: flex; flex-direction: column; }
+.drawer-link {
+    display: flex; align-items: center; gap: 12px; padding: 10px 6px;
+    border-bottom: 1px dashed var(--border); color: var(--ink); font-size: 0.98rem;
+}
+.drawer-link:hover { color: var(--pink-d); padding-left: 12px; }
+.drawer-icon {
+    width: 26px; height: 26px; border-radius: 50%; background: var(--pink-l);
+    color: var(--pink-d); font-size: 0.68rem; display: flex; align-items: center; justify-content: center;
+}
+.drawer-tags { margin-top: 16px; }
+.drawer-tags-title { font-size: 0.76rem; color: var(--text-2); letter-spacing: 0.12em; margin-bottom: 8px; }
+.drawer-tag-cloud { display: flex; flex-wrap: wrap; gap: 7px; }
+.drawer-tag {
+    font-size: 0.74rem; background: var(--yellow); color: var(--ink);
+    border-radius: 999px; padding: 3px 11px; transform: rotate(-1deg);
+}
+.drawer-tag:nth-child(3n) { background: var(--matcha-l); color: var(--matcha); }
+.drawer-tag:nth-child(2n) { background: var(--pink-l); color: var(--pink-d); }
+.drawer-social { display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.social-link {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 34px; height: 34px; border: 1px solid var(--border); border-radius: 50%;
+    color: var(--text-2);
+}
+.social-link:hover { color: var(--pink-d); border-color: var(--pink-d); }
+.social-link svg { display: block; }
+
+/* ===== 居中标题栏 ===== */
+.note-header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255, 249, 245, 0.88);
+    backdrop-filter: blur(8px);
+    text-align: center; padding: 16px 0; border-bottom: 1px solid var(--border);
+}
+.note-title { font-family: var(--font-round); font-size: 1.2rem; letter-spacing: 0.12em; color: var(--ink); font-weight: 700; }
+.note-title:hover { color: var(--pink-d); }
+.main { max-width: 1080px; margin: 0 auto; padding: 30px 24px 50px; }
+
+/* ===== 便签 hero ===== */
+.hero-note {
+    position: relative; max-width: 720px; margin: 0 auto 40px;
+    background: var(--paper); border: 2px solid var(--pink);
+    border-radius: var(--radius); padding: 40px 34px 32px; text-align: center;
+    box-shadow: var(--shadow-soft);
+}
+.tape-hero { top: -16px; left: 50%; transform: translateX(-50%) rotate(-2deg); }
+.sticker {
+    position: absolute; top: -18px; right: 22px;
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--yellow); display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; box-shadow: var(--shadow); transform: rotate(8deg);
+}
+.hero-title { font-size: 1.9rem; font-weight: 700; color: var(--ink); }
+.hero-desc { color: var(--text-2); margin-top: 10px; }
+.hero-tags { display: flex; justify-content: center; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
+.hero-tag {
+    background: var(--pink-l); color: var(--pink-d); border-radius: 999px;
+    padding: 7px 18px; font-size: 0.86rem;
+}
+.hero-tag:nth-child(2) { background: var(--matcha-l); color: var(--matcha); transform: rotate(1deg); }
+.hero-tag:nth-child(3) { background: #fff3e0; color: #ef9a5a; transform: rotate(-1deg); }
+
+/* ===== 便签网格 ===== */
+.notes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+html[data-columns="1"] .notes { grid-template-columns: 1fr; }
+html[data-columns="2"] .notes { grid-template-columns: repeat(2, 1fr); }
+.note-card {
+    position: relative; background: var(--paper);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 20px 20px 18px; color: var(--ink); box-shadow: var(--shadow);
+    display: flex; flex-direction: column; gap: 9px;
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+html[data-rotate="true"] .note-card:nth-child(2n) { background: var(--yellow); transform: rotate(-1deg); }
+html[data-rotate="true"] .note-card:nth-child(3n) { background: var(--matcha-l); transform: rotate(1deg); }
+.note-card:hover { transform: translateY(-4px) rotate(0deg); box-shadow: var(--shadow-soft); color: var(--ink); }
+.pin {
+    position: absolute; top: -7px; left: 50%; transform: translateX(-50%);
+    width: 15px; height: 15px; border-radius: 50%;
+    background: radial-gradient(circle at 32% 30%, #ffd5e0, var(--pink-d) 60%, #d96f96);
+    box-shadow: 0 3px 4px rgba(93, 78, 78, 0.35); z-index: 3; pointer-events: none;
+}
+html[data-pins="false"] .pin { display: none; }
+.note-head { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.78rem; }
+.note-date { font-family: var(--font-hand); font-size: 1.05rem; color: var(--pink-d); }
+.note-emoji { font-size: 0.9rem; }
+.note-cover { border-radius: 10px; overflow: hidden; }
+.note-cover img { width: 100%; height: 130px; object-fit: cover; display: block; }
+.note-title { font-size: 1.08rem; line-height: 1.45; }
+.note-abstract {
+    font-size: 0.86rem; color: var(--text-2); flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-weight: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+.note-abstract * { font-weight: normal !important; }
+.note-abstract p { margin: 0; }
+.read-pill {
+    display: inline-block; font-size: 0.72rem; color: var(--pink-d);
+    border: 1px solid var(--pink); border-radius: 999px; padding: 5px 14px;
+}
+.note-card:hover .read-pill { background: var(--pink-d); color: #fff; }
+.note-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.note-tag {
+    font-size: 0.7rem; background: var(--pink-l); color: var(--pink-d);
+    border-radius: 999px; padding: 2px 10px;
+}
+.note-tag:nth-child(2n) { background: var(--matcha-l); color: var(--matcha); }
+.empty {
+    border: 2px dashed var(--pink); background: var(--paper); border-radius: var(--radius);
+    padding: 40px; text-align: center; color: var(--text-2); grid-column: 1 / -1;
+}
+
+/* ===== 分页 ===== */
+.pagination { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 38px; font-size: 0.9rem; }
+.page-prev, .page-next {
+    background: var(--paper); border: 2px solid var(--pink); border-radius: 999px;
+    color: var(--pink-d); padding: 9px 22px; box-shadow: var(--shadow);
+}
+.page-prev:hover, .page-next:hover { background: var(--pink-d); border-color: var(--pink-d); color: #fff; }
+.page-info { color: var(--text-2); font-size: 0.84rem; }
+
+/* ===== 文章详情 ===== */
+.post-detail { max-width: var(--content-width); margin: 0 auto; }
+.note-paper {
+    position: relative; background: var(--paper); border: 1px solid var(--border);
+    border-radius: var(--radius); box-shadow: var(--shadow-soft); padding: 40px 40px 32px;
+}
+.tape-post { top: -15px; left: 50%; transform: translateX(-50%) rotate(-2deg); }
+.post-header { text-align: center; border-bottom: 2px dashed var(--pink); padding-bottom: 20px; margin-bottom: 24px; }
+.post-meta { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; font-size: 0.82rem; color: var(--text-2); }
+.post-title { font-size: 1.85rem; font-weight: 700; margin-top: 10px; color: var(--ink); }
+.post-tags { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.tag-chip { font-size: 0.76rem; background: var(--pink-l); color: var(--pink-d); border-radius: 999px; padding: 4px 13px; }
+.tag-chip:hover { background: var(--matcha-l); color: var(--matcha); }
+.post-feature { margin-bottom: 24px; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+.post-feature-img { width: 100%; display: block; }
+.post-toc { background: var(--pink-l); border-radius: 12px; padding: 15px 20px; margin-bottom: 24px; font-size: 0.9rem; }
+.post-toc a { color: var(--pink-d); }
+
+.post-content { font-size: 1.03rem; }
+.post-content h2 { font-size: 1.4rem; font-weight: 700; color: var(--pink-d); margin: 32px 0 13px; }
+.post-content h3 { font-size: 1.15rem; color: var(--matcha); margin: 24px 0 10px; }
+.post-content p { margin: 0 0 16px; }
+.post-content a { border-bottom: 1px dashed var(--pink); }
+.post-content ul, .post-content ol { margin: 0 0 16px 26px; }
+.post-content li { margin-bottom: 6px; }
+.post-content blockquote {
+    background: var(--matcha-l); border-left: 5px solid var(--matcha);
+    border-radius: 0 12px 12px 0; padding: 14px 20px; margin: 0 0 16px; color: var(--ink);
+}
+.post-content pre {
+    background: var(--pink-l); border: 1px solid var(--border); border-left: 5px solid var(--pink-d);
+    border-radius: 12px; padding: 16px 18px; overflow-x: auto; margin: 0 0 16px; position: relative; font-size: 0.88rem;
+}
+.post-content code { font-family: "SF Mono", "Cascadia Code", Consolas, monospace; font-size: 0.88em; background: rgba(244, 143, 177, 0.16); padding: 2px 5px; border-radius: 6px; }
+.post-content pre code { background: none; padding: 0; }
+.post-content img { border-radius: 12px; }
+.post-content hr { border: none; height: 2px; margin: 28px 0; background: linear-gradient(90deg, transparent, var(--pink), transparent); border-radius: 2px; }
+.post-content table { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-size: 0.94rem; }
+.post-content th, .post-content td { border: 1px solid var(--border); padding: 9px 11px; text-align: left; }
+.post-content th { background: var(--pink-l); color: var(--pink-d); }
+.code-copy-btn {
+    position: absolute; top: 8px; right: 8px; cursor: pointer;
+    font-family: var(--font-round); font-size: 0.72rem; color: var(--pink-d);
+    background: rgba(255, 255, 255, 0.85); border: 1px solid var(--border); border-radius: 8px; padding: 3px 10px;
+}
+.code-copy-btn.copied { color: var(--matcha); border-color: var(--matcha); }
+html[data-drop-cap="true"] .post-content > p:first-of-type::first-letter {
+    font-size: 54px; float: left; line-height: 0.85; margin: 6px 10px 0 0;
+    color: var(--pink-d); font-family: var(--font-round); font-weight: 700;
+}
+
+.post-navigation { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 34px 0 10px; }
+.post-nav {
+    background: var(--paper); border: 2px solid var(--pink); border-radius: 14px;
+    padding: 17px 20px; display: flex; flex-direction: column; gap: 7px; color: var(--ink);
+}
+.post-nav:hover { border-color: var(--matcha); color: var(--ink); }
+.post-nav.next { text-align: right; }
+.nav-label { font-size: 0.76rem; color: var(--text-2); }
+.nav-title { font-size: 1.02rem; font-weight: 700; }
+.post-nav:hover .nav-title { color: var(--pink-d); }
+
+/* ===== 归档/标签/友链 ===== */
+.page-title { text-align: center; font-size: 1.7rem; margin-bottom: 26px; }
+.archive-year { margin-bottom: 26px; padding: 22px 26px; }
+.archive-year-title { font-family: var(--font-hand); font-size: 1.3rem; color: var(--matcha); margin-bottom: 10px; }
+.archive-list { list-style: none; }
+.archive-item { display: flex; align-items: baseline; gap: 14px; padding: 9px 0; border-bottom: 1px dashed var(--border); }
+.archive-date { font-family: var(--font-hand); font-size: 1rem; color: var(--pink-d); min-width: 96px; }
+.archive-title { color: var(--ink); font-size: 1.02rem; }
+.archive-title:hover { color: var(--pink-d); }
+.tags-cloud { display: flex; flex-wrap: wrap; justify-content: center; gap: 13px; }
+.tag-card {
+    background: var(--paper); border: 2px solid var(--pink); border-radius: 999px;
+    padding: 10px 22px; display: inline-flex; gap: 8px; align-items: center; color: var(--ink);
+    box-shadow: var(--shadow); transform: rotate(-1deg);
+}
+.tag-card:nth-child(3n) { border-color: var(--matcha); transform: rotate(1deg); }
+.tag-card:nth-child(2n) { border-color: var(--yellow); transform: rotate(-0.5deg); }
+.tag-card:hover { color: var(--pink-d); }
+.tag-count { font-size: 0.8rem; color: var(--text-2); }
+.friend-links-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.friend-link-card {
+    padding: 20px; display: flex; gap: 14px; align-items: center; color: var(--ink);
+    box-shadow: var(--shadow);
+}
+.friend-link-card:hover { border-color: var(--matcha); color: var(--ink); }
+.friend-link-avatar { width: 56px; height: 56px; object-fit: cover; border-radius: 50%; border: 3px solid var(--pink-l); flex-shrink: 0; }
+.friend-link-name { font-weight: 700; font-size: 1.05rem; }
+.friend-link-desc { font-size: 0.85rem; color: var(--text-2); margin-top: 4px; }
+
+/* ===== 错误页 ===== */
+.error-page { min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 24px; }
+.error-code { font-size: 5rem; font-weight: 700; color: var(--pink-d); }
+.error-message { font-size: 1.2rem; margin-top: 10px; }
+.error-desc { color: var(--text-2); margin-top: 8px; }
+.error-back-home {
+    display: inline-block; margin-top: 28px; background: var(--pink-d); color: #fff;
+    border-radius: 999px; padding: 12px 30px;
+}
+.error-back-home:hover { background: var(--matcha); color: #fff; }
+
+/* ===== 页脚 ===== */
+.note-footer {
+    text-align: center; padding: 24px; border-top: 1px solid var(--border);
+    color: var(--text-2); font-size: 0.84rem; display: flex; flex-direction: column; gap: 6px;
+}
+
+/* ===== 通用组件 ===== */
+.reading-progress-container { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 999; pointer-events: none; background: rgba(244, 143, 177, 0.15); }
+.reading-progress-bar { height: 100%; background: var(--pink-d); transform: scaleX(0); transform-origin: left; transition: transform 0.05s linear; }
+.back-to-top {
+    position: fixed; bottom: 24px; right: 24px; width: 50px; height: 50px; border-radius: 50%;
+    background: var(--pink-d); color: #fff; border: 2px solid #fff; font-size: 20px; cursor: pointer;
+    opacity: 0; transform: translateY(10px); transition: opacity var(--transition), transform var(--transition);
+    z-index: 998; box-shadow: 0 6px 18px rgba(93, 78, 78, 0.4);
+}
+.back-to-top.visible { opacity: 1; transform: translateY(0); }
+.back-to-top:hover { background: var(--matcha); }
+.image-zoom-overlay {
+    position: fixed; inset: 0; background: rgba(93, 78, 78, 0.94);
+    display: flex; align-items: center; justify-content: center; z-index: 9999;
+    opacity: 0; pointer-events: none; transition: opacity 0.25s;
+}
+.image-zoom-overlay.visible { opacity: 1; pointer-events: auto; }
+.image-zoom-img { max-width: 90vw; max-height: 90vh; border-radius: 14px; }
+
+/* ===== 平板 (769-1024px) ===== */
+@media (min-width: 769px) and (max-width: 1024px) {
+    body { font-size: 15.5px; }
+    html[data-columns="3"] .notes { grid-template-columns: repeat(2, 1fr); }
+    .friend-links-list { grid-template-columns: 1fr; }
+}
+
+/* ===== 桌面 (>1024px) ===== */
+@media (min-width: 1025px) {
+    body { font-size: 16px; }
+}
+
+/* ===== 手机 (≤768px) ===== */
+@media (max-width: 768px) {
+    body { font-size: 15px; }
+    .main { padding: 20px 16px 40px; }
+    .drawer { width: 82%; }
+    .notes, html[data-columns="2"] .notes, html[data-columns="3"] .notes { grid-template-columns: 1fr; }
+    .note-paper { padding: 28px 18px 24px; }
+    .hero-note { padding: 32px 20px 26px; }
+    .hero-title { font-size: 1.55rem; }
+    .post-title { font-size: 1.5rem; }
+    .post-navigation { grid-template-columns: 1fr; }
+    .post-nav.next { text-align: left; }
+    .friend-links-list { grid-template-columns: 1fr; }
+    .back-to-top { bottom: 20px; right: 20px; }
+}
+
+/* ===== 动效偏好 ===== */
+@media (prefers-reduced-motion: reduce) {
+    body, body.gridea-page-leaving { animation: none !important; }
+    html { scroll-behavior: auto; }
+    .note-card, .hero-tag { transform: none !important; }
+}
+
+/* T1：FAB 悬浮于内容之上 */
+.back-to-top { position: fixed !important; right: 16px !important; bottom: 96px !important; z-index: 9999 !important; opacity: 0; transform: translateY(10px); transition: opacity 0.3s ease, transform 0.3s ease; }
+.back-to-top.visible { opacity: 1 !important; transform: translateY(0) !important; }
+
+/* T1：sticky footer */
+body { min-height: 100vh; display: flex; flex-direction: column; }
+main, .main, .main-content, .container.page, .receipt-wrap, .page { flex: 1 0 auto; width: 100%; }
+</style>
+    
+<meta property="og:title" content="5"/><meta property="og:description" content="空状态引导：无文章/无标签时的友好提示
+长按快捷菜单：文章卡片长按弹出编辑/删除/置顶/复制链接
+首次启动引导：新用户引导页"/><meta property="og:type" content="article"/><meta property="og:url" content="https://16916949.github.io/post/1784652274404-5/"/><meta property="og:image" content="https://open.gridea.dev/media/gridea.png"/><meta property="og:site_name" content="踏雪寻梅"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":5","description":空状态引导：无文章/无标签时的友好提示\n长按快捷菜单：文章卡片长按弹出编辑/删除/置顶/复制链接\n首次启动引导：新用户引导页","datePublished":2026-07-22 00:44:30","dateModified":2026-07-22 00:44:30","author":{"@type":"Person","name":xiuhong"},"publisher":{"@type":"Organization","name":踏雪寻梅"}}</script>
 
 </head>
 <body>
-    <div class="crt-scanlines" aria-hidden="true"></div>
-    <header class="site-header">
-        <div class="container terminal-window">
-            <div class="terminal-titlebar">
-                <span class="term-dot term-dot-red"></span>
-                <span class="term-dot term-dot-yellow"></span>
-                <span class="term-dot term-dot-green"></span>
-                <span class="term-title-text">user@gridea: ~</span>
-            </div>
-            <div class="terminal-body">
-                <div class="site-brand">
-                    <div class="prompt-line">
-                        <span class="prompt-user">user@gridea</span><span class="prompt-colon">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$</span>
-                        <img class="site-avatar" src="https://open.gridea.dev/media/gridea.png" alt="踏雪寻梅">
-                        <span class="site-logo-wrap"><a href="./" class="site-logo">踏雪寻梅</a><span class="cursor-blink">_</span></span>
-                    </div>
-                    <p class="site-description"><span class="comment"># </span>你好世界</p>
-                </div>
-                
-                <nav class="site-nav">
-                    <button class="nav-toggle" aria-label="菜单" aria-expanded="false">
-                        <span class="nav-toggle-bar"></span>
-                        <span class="nav-toggle-bar"></span>
-                        <span class="nav-toggle-bar"></span>
-                    </button>
-                    <div class="nav-links">
-                        
-                        <a href="./" class="nav-link"><span class="nav-prefix">$</span> 首页</a>
-                        
-                        <a href="archives/" class="nav-link"><span class="nav-prefix">$</span> 归档</a>
-                        
-                        <a href="tags/" class="nav-link"><span class="nav-prefix">$</span> 标签</a>
-                        
-                        <a href="links.html" class="nav-link"><span class="nav-prefix">$</span> 友链</a>
-                        
-                        <a href="post/1784822488687-test/" class="nav-link"><span class="nav-prefix">$</span> 页面</a>
-                        
-                        <a href="post/biao-qian-ce-shi/" class="nav-link" target="_blank"><span class="nav-prefix">$</span> 外部跳转页面</a>
-                        
-                        <a href="post/1785149298221-高考倒计时背景-基于HTML-CSS-J/" class="nav-link" target="_blank"><span class="nav-prefix">$</span> 对比测试</a>
-                        
-                        <a href="post/1785149224458-原网站文章/" class="nav-link"><span class="nav-prefix">$</span> 对照页面</a>
-                        
-                    </div>
-                </nav>
-                
-            </div>
+    
+    <button class="hamburger nav-toggle" aria-label="菜单" aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+    </button>
+    <div class="drawer-backdrop" aria-hidden="true"></div>
+    <aside class="drawer nav-links" aria-label="手账抽屉">
+        
+        <div class="tape tape-drawer" aria-hidden="true"></div>
+        
+        <div class="drawer-avatar">
+            
+            <img src="https://open.gridea.dev/media/gridea.png" alt="踏雪寻梅">
+            
         </div>
+        <div class="drawer-name">踏雪寻梅</div>
+        <div class="drawer-sub">@ xiuhong</div>
+        <nav class="drawer-nav">
+            
+            
+            <a href="./" class="drawer-link">
+                <span class="drawer-icon">0</span>首页
+            </a>
+            
+            <a href="archives/" class="drawer-link">
+                <span class="drawer-icon">1</span>归档
+            </a>
+            
+            <a href="tags/" class="drawer-link">
+                <span class="drawer-icon">2</span>标签
+            </a>
+            
+            <a href="links.html" class="drawer-link">
+                <span class="drawer-icon">3</span>友链
+            </a>
+            
+            <a href="post/1784822488687-test/" class="drawer-link">
+                <span class="drawer-icon">4</span>页面
+            </a>
+            
+            <a href="post/biao-qian-ce-shi/" class="drawer-link" target="_blank">
+                <span class="drawer-icon">5</span>外部跳转页面
+            </a>
+            
+            <a href="post/1785149298221-高考倒计时背景-基于HTML-CSS-J/" class="drawer-link" target="_blank">
+                <span class="drawer-icon">6</span>对比测试
+            </a>
+            
+            <a href="post/1785149224458-原网站文章/" class="drawer-link">
+                <span class="drawer-icon">7</span>对照页面
+            </a>
+            
+            
+            
+        </nav>
+        <div class="drawer-tags">
+            <div class="drawer-tags-title">便签云</div>
+            
+            <div class="drawer-tag-cloud">
+                
+                <a href="post/1784652274404-5/" class="drawer-tag">5</a>
+                
+                <a href="post/8-yue-fen-ce-shi/" class="drawer-tag">8月份的测试</a>
+                
+                <a href="post/biao-qian-ce-shi/" class="drawer-tag">标签测试</a>
+                
+                <a href="post/1785150854075-文章上传确认/" class="drawer-tag">文章上传确认</a>
+                
+                <a href="post/1785149298221-高考倒计时背景-基于HTML-CSS-J/" class="drawer-tag">高考倒计时背景（基于HTML/CSS+JS实现）</a>
+                
+            </div>
+            
+        </div>
+        
+        <div class="drawer-social">
+            
+            <a href="https://github.com/lime" class="social-link" target="_blank" rel="noopener noreferrer">
+
+<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.17c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.77 1.05.77 2.12v3.15c0 .31.21.67.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+
+</a>
+            
+            <a href="https://space.bilibili.com/1234567" class="social-link" target="_blank" rel="noopener noreferrer">
+
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="6" width="19" height="13" rx="2.5"/><path d="M8.5 2.5L7 6M15.5 2.5L17 6"/><circle cx="8.8" cy="12" r="1.1"/><circle cx="15.2" cy="12" r="1.1"/></svg>
+
+</a>
+            
+        </div>
+        
+    </aside>
+    
+    <header class="note-header">
+        <a href="./" class="note-title">🌸 踏雪寻梅 🌸</a>
     </header>
-    <main class="container">
-        <div class="terminal-window main-window">
-            <div class="terminal-titlebar">
-                <span class="term-dot term-dot-red"></span>
-                <span class="term-dot term-dot-yellow"></span>
-                <span class="term-dot term-dot-green"></span>
-                <span class="term-title-text">5</span>
-            </div>
-            <div class="terminal-body main-body">
-                
-<article class="post-detail">
+    <main class="main">
+        
+<article class="post-detail note-paper">
+    
+    <div class="tape tape-post" aria-hidden="true"></div>
+    
     <header class="post-header">
-        <p class="post-path"><span class="prompt-dollar">$</span> cat ./posts/1784652274404-5.md</p>
-        <h1 class="post-title"><span class="title-prefix">&gt;</span> 5</h1>
         <div class="post-meta">
-            <span class="meta-item post-date"><span class="comment">#</span> date: 2026-07-22 00:44:30</span>
-            <span class="meta-item"><span class="comment">#</span> 60 words</span>
-            <span class="meta-item"><span class="comment">#</span> ~1 min read</span>
+            <span>2026-07-22 00:44:30</span>
+            <span>·</span>
+            <span>60 字</span>
+            <span>·</span>
+            <span>1 分钟</span>
         </div>
+        <h1 class="post-title">5</h1>
         <div class="post-tags">
             
-            <a href="tag/你好世界/" class="tag-chip"><span class="bracket">[</span>你好世界<span class="bracket">]</span></a>
+            <a href="tag/ni-hao-shi-jie/" class="tag-chip">#你好世界</a>
             
-            <a href="tag/1/" class="tag-chip"><span class="bracket">[</span>1<span class="bracket">]</span></a>
+            <a href="tag/1/" class="tag-chip">#1</a>
             
-            <a href="tag/2/" class="tag-chip"><span class="bracket">[</span>2<span class="bracket">]</span></a>
+            <a href="tag/2/" class="tag-chip">#2</a>
             
-            <a href="tag/3/" class="tag-chip"><span class="bracket">[</span>3<span class="bracket">]</span></a>
+            <a href="tag/3/" class="tag-chip">#3</a>
             
-            <a href="tag/4/" class="tag-chip"><span class="bracket">[</span>4<span class="bracket">]</span></a>
+            <a href="tag/4/" class="tag-chip">#4</a>
             
         </div>
     </header>
+    
+    
+    
     
     <div class="post-content">
         <p>空状态引导：无文章/无标签时的友好提示</p>
@@ -111,10 +562,10 @@
     <nav class="post-navigation">
         
         
-        <div class="post-nav next">
-            <span class="nav-label">cd ../next <span class="prompt-dollar">$</span></span>
-            <a href="post/8-yue-fen-ce-shi/" class="nav-title">8月份的测试 -&gt;</a>
-        </div>
+        <a href="post/8-yue-fen-ce-shi/" class="post-nav next">
+            <span class="nav-label">下一篇 →</span>
+            <span class="nav-title">8月份的测试</span>
+        </a>
         
     </nav>
     <div id="vcomments" class="comment-section"></div>
@@ -129,17 +580,10 @@ new Valine({
 </script>
 </article>
 
-            </div>
-        </div>
     </main>
-    <footer class="site-footer">
-        <div class="container">
-            <div class="terminal-window footer-window">
-                <div class="terminal-body">
-                    <p><span class="prompt-dollar">$</span> <span class="comment"># </span>Powered by Gridea</p>
-                </div>
-            </div>
-        </div>
+    <footer class="note-footer">
+        <span>Powered by Gridea</span>
+        <span>✿ ✿ ✿</span>
     </footer>
     
     
@@ -158,9 +602,7 @@ new Valine({
             var code = pre.querySelector('code');
             var text = code ? code.innerText : pre.innerText;
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text).then(function() {
-                    showCopied(btn);
-                }).catch(function() { fallbackCopy(text, btn); });
+                navigator.clipboard.writeText(text).then(function() { showCopied(btn); }).catch(function() { fallbackCopy(text, btn); });
             } else { fallbackCopy(text, btn); }
         });
     });
@@ -251,14 +693,15 @@ new Valine({
 </script>
 
 
-    <div id="reading-progress-container" class="reading-progress-container">
-        <div id="reading-progress" class="reading-progress-bar"></div>
-    </div>
-    <button id="back-to-top" class="back-to-top" aria-label="回到顶部">^</button>
-    <div id="image-zoom-overlay" class="image-zoom-overlay">
-        <img id="image-zoom-img" class="image-zoom-img" />
-    </div>
-    
+    <div id="reading-progress-container" class="reading-progress-container"><div id="reading-progress" class="reading-progress-bar"></div></div>
+    <button id="back-to-top" class="back-to-top" aria-label="回到顶部">↑</button>
+    <div id="image-zoom-overlay" class="image-zoom-overlay"><img id="image-zoom-img" class="image-zoom-img" alt=""></div>
+    <script>
+    window.GRIDEA_CONFIG = window.GRIDEA_CONFIG || {};
+    window.GRIDEA_CONFIG.accent = "#f48fb1";
+    window.GRIDEA_CONFIG.style = "sakuranote";
+    window.GRIDEA_CONFIG.socialLinks = ["https://github.com/lime","https://space.bilibili.com/1234567"];
+    </script>
     
     <script>
     (function(){
@@ -273,6 +716,7 @@ new Valine({
             links.classList.toggle('open');
             toggle.classList.toggle('is-open');
             toggle.classList.toggle('active');
+            document.body.classList.toggle('drawer-open');
         });
     })();
     </script>
