@@ -1,26 +1,15 @@
 /* ============================================================
-   10-DarkGallery custom.js
-   通用五件套（巨型菜单由 CSS hover 完成）
+   10-Ink custom.js
+   非文章页的阅读进度条、回到顶部、图片放大
+   文章页由 post.peb 内联脚本处理（通过 data-gridea-inline 标记跳过）
    ============================================================ */
 (function() {
     'use strict';
 
-    // ===== 巨型菜单：触屏/键盘点击展开（仿 04，外部点击关闭） =====
-    var megaBtn = document.querySelector('.mega-btn');
-    var megaPanel = document.querySelector('.mega-panel');
-    if (megaBtn && megaPanel) {
-        megaBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            megaPanel.classList.toggle('open');
-        });
-        document.addEventListener('click', function(e) {
-            if (!megaPanel.contains(e.target)) megaPanel.classList.remove('open');
-        });
-    }
-
     // ===== 阅读进度条 + 回到顶部（非文章页） =====
     var backTopBtn = document.getElementById('back-to-top');
     var progressBar = document.getElementById('reading-progress');
+
     var inlineHandled = (backTopBtn && backTopBtn.dataset.grideaInline === '1') ||
                         (progressBar && progressBar.dataset.grideaInline === '1');
 
@@ -60,7 +49,10 @@
         }
 
         window.addEventListener('scroll', function() {
-            if (!ticking) { window.requestAnimationFrame(onScrollUpdate); ticking = true; }
+            if (!ticking) {
+                window.requestAnimationFrame(onScrollUpdate);
+                ticking = true;
+            }
         }, { passive: true });
 
         var resizeTimer = null;
@@ -84,11 +76,13 @@
     // ===== 图片放大（非文章页） =====
     var overlay = document.getElementById('image-zoom-overlay');
     var zoomImg = document.getElementById('image-zoom-img');
-    if (overlay && overlay.dataset.grideaInline !== '1' && zoomImg) {
-        document.querySelectorAll('.post-content img, .post-feature img, .art-cover img').forEach(function(img) {
+    if (overlay && overlay.dataset.grideaInline !== '1' && overlay && zoomImg) {
+        document.querySelectorAll('.post-content img, .post-feature img').forEach(function(img) {
             img.addEventListener('click', function(e) {
-                e.preventDefault(); e.stopPropagation();
-                zoomImg.src = img.src; zoomImg.alt = img.alt || '';
+                e.preventDefault();
+                e.stopPropagation();
+                zoomImg.src = img.src;
+                zoomImg.alt = img.alt || '';
                 overlay.classList.add('visible');
                 overlay.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden';
@@ -97,10 +91,13 @@
         function closeZoom() {
             overlay.classList.remove('visible');
             overlay.setAttribute('aria-hidden', 'true');
-            zoomImg.src = ''; document.body.style.overflow = '';
+            zoomImg.src = '';
+            document.body.style.overflow = '';
         }
         overlay.addEventListener('click', closeZoom);
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeZoom(); });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeZoom();
+        });
     }
 
     // ===== 外部链接新窗口打开 =====
@@ -131,7 +128,9 @@
             } catch (err) { return; }
             e.preventDefault();
             document.body.classList.add('gridea-page-leaving');
-            window.setTimeout(function() { window.location.href = link.href; }, 200);
+            window.setTimeout(function() {
+                window.location.href = link.href;
+            }, 200);
         }, true);
     }
 })();
